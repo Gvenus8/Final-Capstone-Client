@@ -21,10 +21,10 @@ const handleResponse = async (response) => {
         }
 
         // Try to parse the error response
-        let errorData;
+        let error;
         try {
             errorData = await response.json();
-        } catch (error) {
+        } catch (errorData) {
             errorData = { message: response.statusText };
         }
 
