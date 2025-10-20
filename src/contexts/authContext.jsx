@@ -1,26 +1,22 @@
 'use client';
 
 import { createContext, useState, useEffect, useContext } from 'react';
-import { getCurrentUser } from '../services/authService';
+import { getCurrentUser, logout as logoutUser  } from '../services/authService';
 
-// Create the context
+
 const AuthContext = createContext();
 
-// Create a provider component
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Load the user on initial render
+   
     useEffect(() => {
         const loadUser = async () => {
             try {
-                // Try to get the current user directly from the API
-                // The API will use the HttpOnly cookie automatically
+               
                 const userData = await getCurrentUser();
-
-                // If we got user data, set the user
                 if (userData && "id" in userData) {
                     setUser(userData);
                 }
@@ -31,7 +27,6 @@ export const AuthProvider = ({ children }) => {
                 setLoading(false);
             }
         };
-
         loadUser();
     }, []);
 
@@ -42,23 +37,31 @@ export const AuthProvider = ({ children }) => {
     };
 
     // Logout function
-    const logout = () => {
-        console.log('Logging out user');
-        setUser(null);
-        window.location.href = '/auth/login'; // Redirect to login page
-    };
+    const logout = async () => {
+        try {
+            console.log('Logging out user');
+            await logoutUser();
 
-    // Check if the user has a specific role
+            setUser(null);
+            window.location.href = '/auth/login';
+        } catch (error) {
+            console.error('Logout error:', error);
+            setUser(null);
+            window.location.href = '/auth/login';
+        }
+    };
     const hasRole = (role) => {
         if (!user || !user.roles) return false;
         return user.roles.includes(role);
     };
 
-    // Check if the user is an admin
+
+
     const isAdmin = () => hasRole('Admin');
 
 
-    // The value that will be provided to consumers of this context
+
+
     const value = {
         user,
         loading,
@@ -73,7 +76,7 @@ export const AuthProvider = ({ children }) => {
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-// Custom hook to use the auth context
+
 export const useAuth = () => {
     const context = useContext(AuthContext);
     if (context === undefined) {

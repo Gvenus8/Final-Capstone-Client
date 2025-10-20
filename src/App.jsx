@@ -1,35 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useAuth } from './contexts/AuthContext'; 
+import Auth from './pages/Auth'; 
+import Dashboard from './pages/Dashboard';
+import CreateEntry from './pages/CreateEntry';
+import UpdateEntry from './pages/UpdateEntry';
+import ViewEntries from './pages/ViewEntries';
+import Profile from './pages/UserProfile'; 
+import Admin from './pages/Admin';
+import Layout from './components/Layout';
+import ViewEntry from './pages/ViewEntry';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { user, loading } = useAuth();
+
+  
+  if (loading) {
+    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        
+        <Route
+          path="/auth/login"
+          element={user ? <Navigate to="/dashboard" /> : <Auth />}
+        />
+
+         
+        <Route
+          path="/"
+          element={user ? <Layout /> : <Navigate to="/auth/login" />}
+        >
+          <Route index element={<Navigate to="/dashboard" />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="entries/new" element={<CreateEntry />} />
+          <Route path="entries/:id" element={<ViewEntry />} />
+          <Route path="entries" element={<ViewEntries />} />
+          <Route path="entries/:id/edit" element={<UpdateEntry />} />
+          <Route path="profile" element={<Profile />} />
+        
+          <Route
+            path="admin"
+            element={user?.isAdmin ? <Admin /> : <Navigate to="/dashboard" />}
+          />
+        </Route>
+        
+
+       
+        <Route path="*" element={<Navigate to="/auth/login" />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

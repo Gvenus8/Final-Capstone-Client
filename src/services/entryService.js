@@ -20,3 +20,6 @@ export const updateEntry = (id, entryData) => {
 export const deleteEntry = (id) => {
     return del(`/api/entries/${id}`);
 };
+export const getEntryCount = () => {
+    return get('/api/entries/count');
+};

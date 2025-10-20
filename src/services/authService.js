@@ -2,7 +2,7 @@ import { get, post, } from './apiService';
 
 
 export const register = (userData) => {
-    return post('/auth/register', userdata)
+    return post('/auth/register', userData)
 }
 
 export const login = (credentials) => {

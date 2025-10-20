@@ -1,12 +1,12 @@
 
 const API_BASE_URL = 'http://localhost:5150';
 
-// Default headers for all requests
+
 const defaultHeaders = {
     'Content-Type': 'application/json',
 };
 
-// Helper function to handle API responses
+
 const handleResponse = async (response) => {
     // Check if the response is ok (status in the range 200-299)
     if (!response.ok) {
@@ -20,30 +20,28 @@ const handleResponse = async (response) => {
             return null;
         }
 
-        // Try to parse the error response
-        let error;
+        
+        let errorData;
         try {
             errorData = await response.json();
-        } catch (errorData) {
+        } catch {
             errorData = { message: response.statusText };
         }
 
-        // Throw an error with the status and message
+        
         throw new Error(
             `API Error ${response.status}: ${errorData.message || 'Unknown error'}`
         );
     }
 
-    // If the response is 204 No Content, return null
+    
     if (response.status === 204) {
         return null;
     }
-
-    // Otherwise, parse the JSON response
     return response.json();
 };
 
-// GET request
+
 export const get = async (endpoint, options = {}) => {
     const url = `${API_BASE_URL}${endpoint}`;
     const response = await fetch(url, {
@@ -52,14 +50,13 @@ export const get = async (endpoint, options = {}) => {
             ...defaultHeaders,
             ...options.headers,
         },
-        credentials: 'include', // Include cookies in the request
+        credentials: 'include', 
         ...options,
     });
 
     return handleResponse(response);
 };
 
-// POST request
 export const post = async (endpoint, data, options = {}) => {
     const url = `${API_BASE_URL}${endpoint}`;
     const response = await fetch(url, {
@@ -68,7 +65,7 @@ export const post = async (endpoint, data, options = {}) => {
             ...defaultHeaders,
             ...options.headers,
         },
-        credentials: 'include', // Include cookies in the request
+        credentials: 'include', 
         body: JSON.stringify(data),
         ...options,
     });
@@ -76,7 +73,8 @@ export const post = async (endpoint, data, options = {}) => {
     return handleResponse(response);
 };
 
-// PUT request
+
+
 export const put = async (endpoint, data, options = {}) => {
     const url = `${API_BASE_URL}${endpoint}`;
     const response = await fetch(url, {
@@ -85,7 +83,7 @@ export const put = async (endpoint, data, options = {}) => {
             ...defaultHeaders,
             ...options.headers,
         },
-        credentials: 'include', // Include cookies in the request
+        credentials: 'include', 
         body: JSON.stringify(data),
         ...options,
     });
@@ -93,7 +91,8 @@ export const put = async (endpoint, data, options = {}) => {
     return handleResponse(response);
 };
 
-// DELETE request
+
+
 export const del = async (endpoint, options = {}) => {
     const url = `${API_BASE_URL}${endpoint}`;
     const response = await fetch(url, {
@@ -102,7 +101,7 @@ export const del = async (endpoint, options = {}) => {
             ...defaultHeaders,
             ...options.headers,
         },
-        credentials: 'include', // Include cookies in the request
+        credentials: 'include',
         ...options,
     });
 

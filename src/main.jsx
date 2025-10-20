@@ -3,9 +3,9 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import './App.css'
-import { AuthProvider } from './contexts/AuthContext'
+import { AuthProvider } from './contexts/AuthContext.jsx'
 import '@radix-ui/themes/styles.css'
-import { Theme } from '@radix-ui/themes
+import { Theme } from '@radix-ui/themes'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
