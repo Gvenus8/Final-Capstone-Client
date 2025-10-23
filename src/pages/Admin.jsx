@@ -40,7 +40,7 @@ export default function Admin() {
         try {
             await deleteUser(userId);
 
-            // Refresh data after deletion
+
             await fetchAdminData();
         } catch (err) {
             console.error('Error deleting user:', err);
@@ -70,7 +70,7 @@ export default function Admin() {
             <Flex direction="column" gap="5">
                 <Heading size="8">👑 Admin Panel</Heading>
 
-                {/* Stat section */}
+
                 <Flex gap="4" wrap="wrap">
                     <Card style={{ flex: 1, minWidth: '200px' }}>
                         <Flex direction="column" gap="2" p="4">
@@ -87,7 +87,7 @@ export default function Admin() {
                     </Card>
                 </Flex>
 
-                {/* ET Section */}
+
                 <Card>
                     <Flex direction="column" gap="3" p="4">
                         <Heading size="5">Most Used Entry Types</Heading>
@@ -105,7 +105,7 @@ export default function Admin() {
                     </Flex>
                 </Card>
 
-                {/* User section */}
+
                 <Card>
                     <Flex direction="column" gap="3" p="4">
                         <Heading size="5">User Management</Heading>
@@ -120,7 +120,7 @@ export default function Admin() {
                                         <Table.ColumnHeaderCell>Display Name</Table.ColumnHeaderCell>
                                         <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
                                         <Table.ColumnHeaderCell>Entries</Table.ColumnHeaderCell>
-                                        
+
                                     </Table.Row>
                                 </Table.Header>
 

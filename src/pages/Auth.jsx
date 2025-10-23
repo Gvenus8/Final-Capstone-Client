@@ -120,7 +120,7 @@ export default function Auth() {
           zIndex: 3,
           height: '100vh',
           padding: '2rem',
-          paddingTop: '60vh',
+          paddingTop: '62vh',
         }}
       >
         <motion.div
@@ -143,17 +143,20 @@ export default function Auth() {
                 </Text>
               )}
 
-             
+
               <form onSubmit={isLogin ? handleLogin : handleRegister}>
                 <Flex direction="column" gap="4">
                   {!isLogin && (
                     <Box>
                       <Text as="label" size="3" mb="1" weight="bold"
                         style={{
-                          fontFamily: "Caesar Dressing",
+                          fontFamily: "Nordic Chance",
                           fontWeight: 400,
                           fontStyle: "normal",
                           color: '#666666ff',
+                          fontSize: '21px',
+                          padding: '12px 15px',
+                          minHeight: '40px',
 
                         }} >
                         Display Name
@@ -169,25 +172,28 @@ export default function Auth() {
                           border: '1px solid rgba(255, 255, 255, 0.3)',
                           borderRadius: '8px',
                           color: 'black',
-                          fontFamily: "Caesar Dressing",
+                          fontFamily: "blackchancery",
                           fontWeight: 400,
                           fontStyle: "normal",
-                          fontSize: '16px',
-                          padding: '14px 16px',
+                          fontSize: '22px',
+                          padding: '9px 15px',
                           minHeight: '40px',
                         }}
                       />
                     </Box>
                   )}
 
-                  
+
                   <Box>
                     <Text as="label" size="3" mb="1" variant="soft"
                       style={{
-                        fontFamily: "Caesar Dressing",
+                        fontFamily: "Nordic Chance",
                         fontWeight: 400,
                         fontStyle: "normal",
-                        color: '#666666ff'
+                        color: '#666666ff',
+                        fontSize: '22px',
+                        padding: '12px 15px',
+                        minHeight: '40px',
                       }} >
                       Email
                     </Text>
@@ -202,25 +208,25 @@ export default function Auth() {
                         border: '1px solid rgba(255, 255, 255, 0.3)',
                         borderRadius: '8px',
                         color: 'black',
-                        fontFamily: "Caesar Dressing",
+                        fontFamily: "BlackChancery",
                         fontWeight: 400,
                         fontStyle: "normal",
-                        fontSize: '16px',
-                        padding: '14px 16px',
+                        fontSize: '22px',
+                        padding: '9px 15px',
                         minHeight: '40px',
                       }}
                     />
                   </Box>
 
-                 
+
                   <Box>
                     <Text as="label" size="3" mb="1" weight="bold"
                       style={{
-                        fontFamily: "Caesar Dressing",
+                        fontFamily: "Nordic Chance",
                         fontWeight: 400,
                         fontStyle: "normal",
                         color: '#666666ff',
-                        fontSize: '16px',
+                        fontSize: '22px',
                         padding: '14px 16px',
                         minHeight: '40px',
                       }} >
@@ -237,25 +243,26 @@ export default function Auth() {
                         border: '1px solid rgba(255, 255, 255, 0.3)',
                         borderRadius: '8px',
                         color: 'Black',
-                        fontFamily: "Caesar Dressing",
+                        fontFamily: "blackchancery",
                         fontWeight: 400,
                         fontStyle: "normal",
-                        fontSize: '16px',
-                        padding: '14px 16px',
+                        fontSize: '22px',
+                        padding: '9px 15px',
                         minHeight: '40px',
                       }}
                     />
                   </Box>
 
-                  
+
                   <Button type="submit" disabled={isLoading} size="3"
                     color="gray"
                     variant="soft"
                     style={{
-                      fontFamily: "Caesar Dressing",
+                      fontFamily: "Nordic Chance",
                       fontWeight: 400,
                       fontStyle: "normal",
                       color: '#666666ff',
+                      fontSize: '22px',
                     }} >
                     {isLoading
                       ? (isLogin ? 'Logging in...' : 'Creating account...')
@@ -265,14 +272,15 @@ export default function Auth() {
                 </Flex>
               </form>
 
-              
+
               <Flex justify="center" mt="2">
                 <Text size="2" color='black'
                   style={{
-                    fontFamily: "Caesar Dressing",
+                    fontFamily: "Nordic Chance",
                     fontWeight: 400,
                     fontStyle: "normal",
-                    color: '#666666ff'
+                    color: '#666666ff',
+                    fontSize: '28px',
                   }} >
                   {isLogin ? "Don't have an account? " : "Already have an account? "}
                   <Text
@@ -288,7 +296,7 @@ export default function Auth() {
           </div>
         </motion.div>
 
-      
+
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -297,7 +305,7 @@ export default function Auth() {
         </motion.div>
       </Flex>
       <style>{`
-    @keyframes morningToEvening {
+        @keyframes morningToEvening {
       0% 
       {
         background-position: 0% 0%;

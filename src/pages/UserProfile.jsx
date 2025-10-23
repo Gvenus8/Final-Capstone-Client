@@ -21,11 +21,11 @@ export default function Profile() {
     const [loadingCount, setLoadingCount] = useState(true);
 
 
-    // Emotion stats state
+   
     const [emotionStats, setEmotionStats] = useState([]);
     const [loadingStats, setLoadingStats] = useState(true);
 
-    // Fetch emotion stats on component mount
+   
     useEffect(() => {
         const fetchEntryCount = async () => {
             try {
@@ -44,7 +44,7 @@ export default function Profile() {
         const fetchEmotionStats = async () => {
             try {
                 const stats = await getEmotionStats();
-                // Format data for Recharts: [{ name: "Happy", value: 15 }, ...]
+                
                 const formattedStats = stats.map(stat => ({
                     name: stat.emotion,
                     value: stat.count
@@ -60,7 +60,7 @@ export default function Profile() {
         fetchEmotionStats();
     }, []);
 
-    // Colors for the pie chart
+ 
     const COLORS = ['#5d7a4a', '#858d32', '#adb595', '#8b5a8f', '#505e3c', '#d1d5cc', '#2a2f1d'];
 
     const handleSave = async (e) => {
@@ -125,43 +125,25 @@ export default function Profile() {
     return (
         <Container size="4" style={{ paddingTop: '2rem', paddingBottom: '3rem' }}>
             <style>{`
-                .wax-seal {
-                    width: 60px;
-                    height: 60px;
-                    background: radial-gradient(circle, #8b1a1a 0%, #5c0f0f 100%);
-                    border-radius: 50%;
-                    position: relative;
-                    box-shadow: 
-                        inset 0 2px 4px rgba(255, 255, 255, 0.3),
-                        0 4px 8px rgba(0, 0, 0, 0.4);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border: 2px solid rgba(139, 26, 26, 0.8);
-                }
-
-                .wax-seal::after {
-                    content: '✒️';
-                    font-size: 24px;
-                }
+               
 
                 .stat-label {
-                    font-family: 'Caesar Dressing';
+                    font-family: 'blackchancery';
                     color: rgba(44, 24, 16, 0.7);
-                    font-size: 14px;
-                    text-transform: uppercase;
+                    font-size: 24px;
+                    
                     letter-spacing: 1px;
                 }
 
                 .stat-value {
-                    font-family: 'Caesar Dressing';
+                    font-family: 'blackchancery';
                     color: #2c1810;
-                    font-size: 20px;
-                    font-weight: bold;
+                    font-size: 24px;
+                    
                 }
 
                 .danger-zone {
-                    background: rgba(255, 240, 240, 0.5);
+                    background: #374228;
                     border: 2px dashed rgba(139, 26, 26, 0.5);
                     border-radius: 8px;
                     padding: 1.5rem;
@@ -169,7 +151,7 @@ export default function Profile() {
                 }
             `}</style>
 
-            {/* Notebook Background Container */}
+      
             <Box
                 style={{
                     backgroundImage: 'url(/images/notebook.png)',
@@ -183,15 +165,15 @@ export default function Profile() {
                 }}
             >
                 <Flex direction="column" gap="5" align="center">
-                    {/* Header with Wax Seal */}
-                    <Flex direction="column" align="center" gap="3" style={{ marginTop: '2rem' }}>
-                        <div className="wax-seal" />
+                 
+                    <Flex direction="column" align="center" gap="3" style={{ marginTop: '-1rem' }}>
+                        
                         <Heading
                             size="8"
                             style={{
-                                fontFamily: 'Caesar Dressing',
-                                color: '#2c1810',
-                                textAlign: 'center',
+                                fontFamily: 'blackchancery',
+                                color: '#374228',
+                                textAlign: 'left',
                                 textShadow: '1px 1px 2px rgba(0,0,0,0.1)',
                             }}
                         >
@@ -199,12 +181,12 @@ export default function Profile() {
                         </Heading>
                     </Flex>
 
-                    {/* Error/Success Messages */}
+                   
                     {error && (
                         <Text
                             size="2"
                             style={{
-                                fontFamily: 'Caesar Dressing',
+                                fontFamily: 'blackchancery',
                                 color: '#8b1a1a',
                                 textAlign: 'center',
                                 background: 'rgba(255, 240, 240, 0.8)',
@@ -220,7 +202,7 @@ export default function Profile() {
                         <Text
                             size="2"
                             style={{
-                                fontFamily: 'Caesar Dressing',
+                                fontFamily: 'blackchancery',
                                 color: '#2a5c1a',
                                 textAlign: 'center',
                                 background: 'rgba(240, 255, 240, 0.8)',
@@ -232,22 +214,24 @@ export default function Profile() {
                         </Text>
                     )}
 
-                    {/* TWO COLUMN LAYOUT */}
+                 
                     <Flex gap="8" style={{ marginTop: '2rem', width: '100%' }}>
-                        {/* LEFT COLUMN - Account Info & Stats */}
+                       
                         <Flex direction="column" gap="5" style={{ flex: 1 }}>
-                            {/* Account Information Section */}
+                            
                             <Box>
                                 <Text
                                     size="5"
                                     weight="bold"
                                     style={{
-                                        fontFamily: 'Caesar Dressing',
+                                        fontFamily: 'blackchancery',
                                         color: '#2c1810',
                                         display: 'block',
                                         marginBottom: '1.5rem',
                                         borderBottom: '2px solid rgba(44, 24, 16, 0.3)',
                                         paddingBottom: '0.5rem',
+                                        fontSize: '38px',
+                                        textAlign: 'center',
                                     }}
                                 >
                                     Account Information
@@ -255,20 +239,23 @@ export default function Profile() {
 
                                 <form onSubmit={handleSave}>
                                     <Flex direction="column" gap="4">
-                                        {/* Email */}
+                                       
                                         <Box>
-                                            <Text className="stat-label" style={{ display: 'block', marginBottom: '0.5rem' }}>
+                                            <Text className="stat-label" style={{ display: 'block', marginBottom: '0.5rem', textAlign: 'center' }}>
                                                 Scroll Address (Email)
                                             </Text>
                                             <Text
                                                 size="3"
                                                 style={{
-                                                    fontFamily: 'Caesar Dressing',
+                                                    fontFamily: 'blackchancery',
                                                     color: '#2c1810',
                                                     padding: '0.5rem',
                                                     background: 'rgba(249, 246, 240, 0.5)',
                                                     borderRadius: '4px',
                                                     display: 'block',
+                                                    fontSize: '34px',
+                                                    textAlign: 'center',
+                                                    letterSpacing: '4px',
                                                 }}
                                             >
                                                 {user?.email || ''}
@@ -276,20 +263,22 @@ export default function Profile() {
                                             <Text
                                                 size="1"
                                                 style={{
-                                                    fontFamily: 'Caesar Dressing',
+                                                    fontFamily: 'blackchancery',
                                                     color: 'rgba(44, 24, 16, 0.5)',
-                                                    fontStyle: 'italic',
-                                                    marginTop: '0.25rem',
+                                                   
+                                                    marginTop: '1.15rem',
                                                     display: 'block',
+                                                    fontSize: '15px',
+                                                    textAlign:'center'
                                                 }}
                                             >
                                                 Email cannot be changed
                                             </Text>
                                         </Box>
 
-                                        {/* Display Name */}
+                                     
                                         <Box>
-                                            <Text className="stat-label" style={{ display: 'block', marginBottom: '0.5rem' }}>
+                                            <Text className="stat-label" style={{ display: 'block', marginBottom: '0.7rem', textAlign: 'center' }}>
                                                 Chronicler's Name
                                             </Text>
                                             {isEditing ? (
@@ -302,19 +291,22 @@ export default function Profile() {
                                                         border: 'none',
                                                         borderBottom: '1px solid rgba(44, 24, 16, 0.3)',
                                                         borderRadius: '0',
-                                                        fontFamily: 'Caesar Dressing',
+                                                        fontFamily: 'blackchancery',
+                                                        fontSize: '28px',
                                                     }}
                                                 />
                                             ) : (
                                                 <Text
                                                     size="3"
                                                     style={{
-                                                        fontFamily: 'Caesar Dressing',
+                                                        fontFamily: 'blackchancery',
                                                         color: '#2c1810',
-                                                        padding: '0.5rem',
+                                                        padding: '0.4rem',
                                                         background: 'rgba(249, 246, 240, 0.5)',
                                                         borderRadius: '4px',
                                                         display: 'block',
+                                                        fontSize: '28px',
+                                                        textAlign: 'center'
                                                     }}
                                                 >
                                                     {displayName}
@@ -322,7 +314,7 @@ export default function Profile() {
                                             )}
                                         </Box>
 
-                                        {/* Edit/Save Buttons */}
+                                        
                                         {!isEditing ? (
                                             <Button
                                                 type="button"
@@ -330,12 +322,14 @@ export default function Profile() {
                                                 onClick={() => setIsEditing(true)}
                                                 style={{
                                                     width: '70%',
-                                                    fontFamily: 'Caesar Dressing',
+                                                    fontFamily: 'Nordic chance',
                                                     background: '#5d7a4a',
                                                     color: 'white',
+                                                    fontSize: '34px',
+                                                    margin: '0 auto',
                                                 }}
                                             >
-                                                ✎ Edit Profile
+                                                Edit Profile
                                             </Button>
                                         ) : (
                                             <Flex gap="3">
@@ -345,7 +339,7 @@ export default function Profile() {
                                                     disabled={isSaving}
                                                     style={{
                                                         flex: 1,
-                                                        fontFamily: 'Caesar Dressing',
+                                                        fontFamily: 'blackchancery',
                                                         background: '#5d7a4a',
                                                         color: 'white',
                                                     }}
@@ -359,7 +353,7 @@ export default function Profile() {
                                                     disabled={isSaving}
                                                     style={{
                                                         flex: 1,
-                                                        fontFamily: 'Caesar Dressing',
+                                                        fontFamily: 'runey tunes revisited nf',
                                                         background: 'rgba(93, 122, 74, 0.3)',
                                                         color: '#2c1810',
                                                     }}
@@ -374,25 +368,25 @@ export default function Profile() {
 
                             <Separator size="4" style={{ background: 'rgba(44, 24, 16, 0.2)' }} />
 
-                            {/* Account Stats Section */}
                             <Box>
                                 <Text
                                     size="5"
                                     weight="bold"
                                     style={{
-                                        fontFamily: 'Caesar Dressing',
+                                        fontFamily: 'blackchancery',
                                         color: '#2c1810',
                                         display: 'block',
                                         marginBottom: '1.5rem',
                                         borderBottom: '2px solid rgba(44, 24, 16, 0.3)',
                                         paddingBottom: '0.5rem',
+                                        fontSize: '28px',
                                     }}
                                 >
                                     Chronicle Records
                                 </Text>
 
                                 <Flex direction="column" gap="3">
-                                    {/* Member Since */}
+                                 
                                     <Flex justify="between" align="center">
                                         <Text className="stat-label">Journey Began:</Text>
                                         <Text className="stat-value">
@@ -403,7 +397,7 @@ export default function Profile() {
                                         </Text>
                                     </Flex>
 
-                                    {/* Total Entries */}
+                                   
                                     <Flex justify="between" align="center">
                                         <Text className="stat-label">Total Entries:</Text>
                                         <Text className="stat-value">
@@ -414,20 +408,22 @@ export default function Profile() {
                             </Box>
                         </Flex>
 
-                        {/* RIGHT COLUMN - Emotion Insights */}
+                     
                         <Flex direction="column" gap="5" style={{ flex: 1 }}>
-                            {/* Emotion Insights Section */}
+                            
                             <Box>
                                 <Text
                                     size="5"
                                     weight="bold"
                                     style={{
-                                        fontFamily: 'Caesar Dressing',
+                                        fontFamily: 'blackchancery',
                                         color: '#2c1810',
                                         display: 'block',
                                         marginBottom: '1.5rem',
                                         borderBottom: '2px solid rgba(44, 24, 16, 0.3)',
                                         paddingBottom: '0.5rem',
+                                        fontSize: '34px',
+                                        textAlign: 'center'
                                     }}
                                 >
                                     Emotion Insights
@@ -446,8 +442,9 @@ export default function Profile() {
                                         <Text
                                             size="4"
                                             style={{
-                                                fontFamily: 'Caesar Dressing',
+                                                fontFamily: 'blackchancery',
                                                 color: 'rgba(44, 24, 16, 0.6)',
+                                                fontSize: '34px',
                                             }}
                                         >
                                             Loading your emotional journey...
@@ -469,9 +466,10 @@ export default function Profile() {
                                         <Text
                                             size="4"
                                             style={{
-                                                fontFamily: 'Caesar Dressing',
+                                                fontFamily: 'blackchancery',
                                                 color: 'rgba(44, 24, 16, 0.6)',
                                                 textAlign: 'center',
+                                                fontSize: '34px',
                                             }}
                                         >
                                             📊 No entries yet
@@ -479,11 +477,12 @@ export default function Profile() {
                                         <Text
                                             size="2"
                                             style={{
-                                                fontFamily: 'Caesar Dressing',
+                                                fontFamily: 'blackchancery',
                                                 color: 'rgba(44, 24, 16, 0.5)',
                                                 textAlign: 'center',
                                                 marginTop: '0.5rem',
                                                 fontStyle: 'italic',
+                                                fontSize: '24px',
                                             }}
                                         >
                                             Start writing to track your emotions
@@ -509,7 +508,7 @@ export default function Profile() {
                                                     outerRadius={120}
                                                     fill="#8884d8"
                                                     dataKey="value"
-                                                    style={{ fontFamily: 'Caesar Dressing', fontSize: '12px' }}
+                                                    style={{ fontFamily: 'blackchancery', fontSize: '25px',  }}
                                                 >
                                                     {emotionStats.map((entry, index) => (
                                                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -517,14 +516,14 @@ export default function Profile() {
                                                 </Pie>
                                                 <Tooltip
                                                     contentStyle={{
-                                                        fontFamily: 'Caesar Dressing',
-                                                        background: 'rgba(249, 246, 240, 0.95)',
+                                                        fontFamily: 'blackchancery',
+                                                        background: '#93aa73',
                                                         border: '1px solid rgba(44, 24, 16, 0.3)',
                                                         borderRadius: '4px'
                                                     }}
                                                 />
                                                 <Legend
-                                                    wrapperStyle={{ fontFamily: 'Caesar Dressing', fontSize: '12px' }}
+                                                    wrapperStyle={{ fontFamily: 'blackchancery', fontSize: '22px',  }}
                                                 />
                                             </PieChart>
                                         </ResponsiveContainer>
@@ -536,28 +535,30 @@ export default function Profile() {
                 </Flex>
             </Box>
 
-            {/* Danger Zone - OUTSIDE the notebook */}
+           
             <Box className="danger-zone" style={{ width: '100%', maxWidth: '800px', margin: '2rem auto 0' }}>
                 <Text
                     size="5"
                     weight="bold"
                     style={{
-                        fontFamily: 'Caesar Dressing',
-                        color: '#8b1a1a',
+                        fontFamily: 'blackchancery',
+                        color: '#c6d2b6',
                         display: 'block',
                         marginBottom: '0.5rem',
+                        fontSize: '28px',
                     }}
                 >
-                    ⚠️ Danger Zone
+                    Finished Your Journey?
                 </Text>
-                <Separator size="4" style={{ background: 'rgba(139, 26, 26, 0.3)', marginBottom: '1rem' }} />
+                <Separator size="4" style={{ background: '#c6d2b6', marginBottom: '1rem' }} />
                 <Text
                     size="2"
                     style={{
-                        fontFamily: 'Caesar Dressing',
-                        color: 'rgba(44, 24, 16, 0.8)',
+                        fontFamily: 'blackchancery',
+                        color: '#c6d2b6',
                         display: 'block',
                         marginBottom: '1rem',
+                        fontSize: '20px',
                     }}
                 >
                     Once you delete your account, there is no going back. Your journal will be permanently removed.
@@ -567,12 +568,13 @@ export default function Profile() {
                     onClick={handleDeleteAccount}
                     disabled={isDeleting}
                     style={{
-                        fontFamily: 'Caesar Dressing',
+                        fontFamily: 'nordic chance',
                         background: '#8b1a1a',
                         color: 'white',
+                        fontSize: '34px',
                     }}
                 >
-                    {isDeleting ? 'Deleting Account...' : '🔥 Delete My Account'}
+                    {isDeleting ? 'Deleting Account...' : 'Delete Account'}
                 </Button>
             </Box>
         </Container>

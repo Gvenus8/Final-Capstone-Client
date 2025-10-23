@@ -99,8 +99,8 @@ export default function EntriesList() {
             <style>{`
             .book-spine-card {
                 background: linear-gradient(to left,
-                    #61831eff 0%,  #5c6231ff 4%, #aa950fff 5%,  #5c6231ff 6%,  #5c6231ff 7%, #aa950fff 8%,
-                    #5c6231ff 9%, #aa950fff 11%, #5c6231ff 12%, #aa950fff 13%, #5c6231ff 14%,
+                    #5c6231ff  0%,  #5c6231ff 4%, #aa950fff 5%,  #5c6231ff 6%,  #5c6231ff 7%, #aa950fff 8%,
+                    #5c6231ff 9% 10%, #aa950fff 11%, #5c6231ff 12%, #aa950fff 13%, #5c6231ff 14%,
                     #5c6231ff 80%, #aa950fff 81%, var(--entry-color) 82%, var(--entry-color) 93%,
                     #aa950fff 94%, #5c6231ff 95%, #5c6231ff 99%,#D1d5cc 100%);
                 border: none;
@@ -152,21 +152,24 @@ export default function EntriesList() {
             }
 
             .filter-shelf {
-                background: linear-gradient(135deg, #5a3d2b 0%, #5a3d2b 100%);
+                background: linear-gradient(135deg, #374228 0%, #374228 100%);
                 border: 2px solid #5a3d2b;
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             }
         `}</style>
 
-            <Flex direction="column" gap="1">
+            <Flex direction="column" gap="1" style={{
+                marginTop:'200px'
+            }}>
                 {/* Header */}
                 <Flex justify="between" align="center">
                     <Heading
                         size="8"
                         style={{
-                            fontFamily: 'Caesar Dressing',
-                            color: '#2c1810',
+                            fontFamily: 'BlackChancery',
+                            color: '#374228',
                             textShadow: '2px 2px 4px rgba(0,0,0,0.1)',
+                            fontSize: '48px',
                         }}
                     >
                         Sacred Chronicles
@@ -174,14 +177,15 @@ export default function EntriesList() {
                     <Button
                         onClick={() => navigate('/entries/new')}
                         style={{
-                            fontFamily: 'Caesar Dressing',
-                            background: 'linear-gradient(135deg, #5d7a4a 0%, #4a6239 100%)',
+                            fontFamily: 'blackchancery',
+                            background: 'linear-gradient(135deg, #374228 0%, #374228 100%)',
                             color: 'white',
-                            border: '2px solid #aa950fff',
+                            
                             boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+                            fontSize: '18px',
                         }}
                     >
-                        ✍️ Inscribe New Tale
+                        Create Entry
                     </Button>
                 </Flex>
 
@@ -191,7 +195,8 @@ export default function EntriesList() {
                     style={{
                         borderRadius: '5px',
                         padding: '1.0rem',
-                        marginTop: '2rem',
+                        marginTop: '1rem',
+                       
 
                     }}
                 >
@@ -204,8 +209,9 @@ export default function EntriesList() {
                                 style={{
                                     display: 'block',
                                     marginBottom: '0.5rem',
-                                    fontFamily: 'Caesar Dressing',
+                                    fontFamily: 'blackchancery ',
                                     color: '#bac4a7',
+                                    fontSize: '25px',
                                 }}
                             >
                                 Filter by Type
@@ -218,9 +224,9 @@ export default function EntriesList() {
                                     padding: '0.5rem',
                                     borderRadius: '6px',
                                     border: '1px solid rgba(170, 149, 15, 0.5)',
-                                    fontSize: 'var(--font-size-2)',
-                                    fontFamily: 'Caesar Dressing',
-                                    background: 'rgba(145, 100, 10, 0.9)',
+                                    fontSize: '20px',
+                                    fontFamily: 'blackchancery',
+                                    background: '#c6d2b6',
                                     color: '#2c1810',
                                 }}
                             >
@@ -241,8 +247,9 @@ export default function EntriesList() {
                                 style={{
                                     display: 'block',
                                     marginBottom: '0.5rem',
-                                    fontFamily: 'Caesar Dressing',
+                                    fontFamily: 'blackchancery',
                                     color: '#bac4a7',
+                                    fontSize: '25px',
                                 }}
                             >
                                 Sort by Date
@@ -255,10 +262,11 @@ export default function EntriesList() {
                                     padding: '0.5rem',
                                     borderRadius: '6px',
                                     border: '1px solid rgba(170, 149, 15, 0.5)',
-                                    fontSize: 'var(--font-size-2)',
-                                    fontFamily: 'Caesar Dressing',
-                                    background: 'rgba(145, 100, 10, 0.9)',
+                                    
+                                    fontFamily: 'blackchancery',
+                                    background: '#c6d2b6',
                                     color: '#2c1810',
+                                    fontSize: '20px',
                                 }}
                             >
                                 <option value="newest">Newest First</option>
@@ -268,11 +276,11 @@ export default function EntriesList() {
                     </Flex>
                 </Box>
 
-                {/* 📚 BOOKSHELF WRAPPER - NEW! */}
+               
                 <Box
                     style={{
                         background: 'linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%)',
-                        border: '14px solid #5a3d2b',
+                        border: '14px solid #374228',
                         borderRadius: '5px',
                         padding: '.25rem',
                         boxShadow:
@@ -294,8 +302,9 @@ export default function EntriesList() {
                                 <Text
                                     size="5"
                                     style={{
-                                        fontFamily: 'Caesar Dressing',
+                                        fontFamily: 'blackchancery',
                                         color: '#2c1810',
+                                        fontSize: '35px',
                                     }}
                                 >
                                     {entries.length === 0 ? 'No tales inscribed yet' : 'No tales match your search'}
@@ -303,8 +312,9 @@ export default function EntriesList() {
                                 <Text
                                     size="3"
                                     style={{
-                                        fontFamily: 'Caesar Dressing',
+                                        fontFamily: 'blackchancery',
                                         color: 'rgba(44, 24, 16, 0.7)',
+                                        fontSize: '30px',
                                     }}
                                 >
                                     {entries.length === 0
@@ -317,12 +327,13 @@ export default function EntriesList() {
                                         size="3"
                                         onClick={() => navigate('/entries/new')}
                                         style={{
-                                            fontFamily: 'Caesar Dressing',
+                                            fontFamily: 'Nordic Chance',
                                             background: '#5d7a4a',
                                             marginTop: '1rem',
+                                            fontSize: '34px',
                                         }}
                                     >
-                                        Inscribe First Tale
+                                        Create Entry
                                     </Button>
                                 )}
                             </Flex>
@@ -343,7 +354,7 @@ export default function EntriesList() {
                                             align="center"
                                             style={{
                                                 height: '100%',
-                                                //padding: '1rem 0.5rem 1rem 2rem',
+                                                
                                                 maxWidth: '100%',
                                                 marginLeft: '20%',
                                                 marginTop: '1rem',
@@ -363,10 +374,10 @@ export default function EntriesList() {
                                                     size="4"
                                                     weight="bold"
                                                     style={{
-                                                        fontFamily: 'Caesar Dressing',
-                                                        color: '#aa950fff',
-                                                        fontSize: 'clamp(24px, 3vw, 18px)', 
-                                                        overflow: 'hidden',
+                                                        fontFamily: 'blackchancery',
+                                                        color: '#bac4a7',
+                                                        fontSize: '34px', 
+                                                        
                                                         textOverflow: 'ellipsis',
                                                         whiteSpace: 'nowrap',
                                                     }}
@@ -377,9 +388,10 @@ export default function EntriesList() {
                                                 <Text
                                                     size="2"
                                                     style={{
-                                                        fontFamily: 'Caesar Dressing',
-                                                        color: '#aa950fff',
-                                                        fontSize: '12px',
+                                                        fontFamily: 'BlackChancery',
+                                                        color: '#bac4a7',
+                                                        fontSize: '19px',
+                                                        marginTop: '0.55rem',
                                                     }}
                                                 >
                                                     {formatDate(entry.createdAt)}
@@ -394,9 +406,9 @@ export default function EntriesList() {
                                                                 size="2"
                                                                 weight="bold"
                                                                 style={{
-                                                                    fontFamily: 'Caesar Dressing',
+                                                                    fontFamily: 'Nordic Chance',
                                                                     color: '#aa950fff',
-                                                                    fontSize: '14px',
+                                                                    fontSize: '18px',
                                                                     textTransform: 'uppercase',
                                                                 }}
                                                             >
@@ -464,7 +476,7 @@ export default function EntriesList() {
                         </>
                     )}
                 </Box>
-                {/* END BOOKSHELF WRAPPER */}
+                
             </Flex>
         </Container>
     );

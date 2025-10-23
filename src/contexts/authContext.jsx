@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useState, useEffect, useContext } from 'react';
-import { getCurrentUser, logout as logoutUser  } from '../services/authService';
+import { getCurrentUser, logout as logoutUser } from '../services/authService';
 
 
 const AuthContext = createContext();
@@ -11,11 +11,11 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-   
+
     useEffect(() => {
         const loadUser = async () => {
             try {
-               
+
                 const userData = await getCurrentUser();
                 if (userData && "id" in userData) {
                     setUser(userData);
@@ -30,13 +30,29 @@ export const AuthProvider = ({ children }) => {
         loadUser();
     }, []);
 
-    // Login function
     const login = async (userData) => {
         console.log('Logging in user:', userData);
         setUser(userData);
     };
+    useEffect(() => {
+        const tokenRefreshInterval = setInterval(() => {
 
-    // Logout function
+            fetch('/api/auth/refresh', {
+                method: 'POST',
+                credentials: 'include'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log("Token refreshed successfully");
+                    }
+                })
+                .catch(err => console.error("Token refresh failed", err));
+        }, 50 * 60 * 1000); // Every 50 minutes
+
+        return () => clearInterval(tokenRefreshInterval);
+    }, []);
+
+
     const logout = async () => {
         try {
             console.log('Logging out user');
@@ -70,7 +86,7 @@ export const AuthProvider = ({ children }) => {
         logout,
         hasRole,
         isAdmin,
-      
+
     };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

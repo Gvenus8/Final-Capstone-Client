@@ -20,7 +20,6 @@ export default function CreateEntry() {
     const [isLoading, setIsLoading] = useState(false);
     const [loadingData, setLoadingData] = useState(true);
 
-    // Release ceremony state
     const [showReleaseCeremony, setShowReleaseCeremony] = useState(false);
     const [entryToRelease, setEntryToRelease] = useState(null);
 
@@ -104,7 +103,7 @@ export default function CreateEntry() {
 
         setError('');
 
-        // Set the entry data and show ceremony
+        
         setEntryToRelease({
             title,
             content,
@@ -115,8 +114,8 @@ export default function CreateEntry() {
 
     const handleReleaseComplete = async () => {
         setShowReleaseCeremony(false);
-        // After ceremony, just navigate away (entry was never saved)
-        navigate('/dashboard');
+       
+        navigate('/entries');
     };
 
     if (loadingData) {
@@ -129,8 +128,28 @@ export default function CreateEntry() {
 
     return (
         <>
-            <Container size="4" style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
-                {/* Notebook Background Container */}
+            <Container size="4" style={{ paddingTop: '12rem', paddingBottom: '1rem' }}>
+               
+                        <Heading
+                            size="4"
+                            style={{
+                                position: 'absolute',
+                                top: '19rem', 
+                                left: '50%',
+                                transform: 'translateX(-50%)', 
+                                textAlign: 'center',
+                                fontFamily: 'BlackChancery',
+                                color: '#374228',
+                                fontSize: '50px',
+                                letterSpacing: '-2px',
+                                width: '100%',
+                                zIndex: 2, 
+                                  
+                                
+                            }}
+                        >
+                            Create New Entry
+                        </Heading>
                 <Box
                     style={{
                         backgroundImage: 'url(/images/notebook.png)',
@@ -140,20 +159,10 @@ export default function CreateEntry() {
                         padding: '4rem 5rem',
                         minHeight: '900px',
                         width: '100%',
+                        marginTop: '2rem',
                     }}
                 >
-                    <Flex direction="column" gap="3">
-                        <Heading
-                            size="7"
-                            style={{
-                                textAlign: 'center',
-                                fontFamily: 'Caesar Dressing',
-                                color: '#2c1810',
-                                marginBottom: '1rem',
-                            }}
-                        >
-                            Create New Entry
-                        </Heading>
+                            <Flex direction="column" gap="3 style={{ marginTop: '2rem' }}">
 
                         {error && (
                             <Text color="red" size="2" style={{ textAlign: 'center' }}>
@@ -162,11 +171,11 @@ export default function CreateEntry() {
                         )}
 
                         <form>
-                            {/* TWO COLUMN LAYOUT */}
-                            <Flex gap="8" style={{ marginTop: '1rem' }}>
-                                {/* LEFT COLUMN - Title & Content */}
+                           
+                            <Flex gap="8" style={{ marginTop: '5rem' }}>
+                              
                                 <Flex direction="column" gap="3" style={{ flex: 1, height: '100%' }}>
-                                    {/* Title */}
+                                 
                                     <Box>
                                         <Text
                                             as="label"
@@ -174,8 +183,11 @@ export default function CreateEntry() {
                                             mb="1"
                                             weight="bold"
                                             style={{
-                                                fontFamily: 'Caesar Dressing',
+                                                fontFamily: 'BlackChancery',
                                                 color: '#2c1810',
+                                                fontSize: '34px',
+                                                marginTop: '1.0rem',
+                                                
                                             }}
                                         >
                                             Title *
@@ -189,12 +201,15 @@ export default function CreateEntry() {
                                                 border: 'none',
                                                 borderBottom: '1px solid rgba(44, 24, 16, 0.3)',
                                                 borderRadius: '0',
-                                                fontFamily: 'Caesar Dressing',
+                                                fontFamily: 'BlackChancery',
+                                                fontSize: '28px',
+                                                marginTop: '10px',
+                                                height: '50px',
+
                                             }}
                                         />
                                     </Box>
 
-                                    {/* Content - TAKES UP REMAINING SPACE */}
                                     <Box style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                                         <Text
                                             as="label"
@@ -202,31 +217,36 @@ export default function CreateEntry() {
                                             mb="1"
                                             weight="bold"
                                             style={{
-                                                fontFamily: 'Caesar Dressing',
+                                                fontFamily: 'blackchancery',
                                                 color: '#2c1810',
+                                                fontSize: '34px',
+                                                marginTop: '5px',
                                             }}
                                         >
                                             Content *
                                         </Text>
-                                        <TextArea
+                                        <textarea
                                             value={content}
                                             onChange={(e) => setContent(e.target.value)}
                                             placeholder="Write your thoughts here..."
                                             style={{
                                                 background: 'transparent',
-                                                border: 'none',
-                                                fontFamily: 'Caesar Dressing',
+                                                border: '1px solid rgba(44, 24, 16, 0.3)',
+                                                fontFamily: 'blackchancery',
                                                 resize: 'none',
                                                 flex: 1,
-                                                minHeight: '400px',
+                                                minHeight: '500px',
+                                                fontSize: '28px ',
+                                                marginTop: '10px',
+                                                overflowY: 'auto',
                                             }}
                                         />
                                     </Box>
                                 </Flex>
 
-                                {/* RIGHT COLUMN - Everything else */}
+                            
                                 <Flex direction="column" gap="3" style={{ flex: 1 }}>
-                                    {/* Recipient */}
+                                  
                                     <Box>
                                         <Text
                                             as="label"
@@ -234,8 +254,9 @@ export default function CreateEntry() {
                                             mb="1"
                                             weight="bold"
                                             style={{
-                                                fontFamily: 'Caesar Dressing',
+                                                fontFamily: 'blackchancery',
                                                 color: '#2c1810',
+                                                fontSize: '34px',
                                             }}
                                         >
                                             Recipient *
@@ -249,12 +270,15 @@ export default function CreateEntry() {
                                                 border: 'none',
                                                 borderBottom: '1px solid rgba(44, 24, 16, 0.3)',
                                                 borderRadius: '0',
-                                                fontFamily: 'Caesar Dressing',
+                                                fontFamily: 'BlackChancery',
+                                                fontSize: '28px',
+                                                marginTop: '10px',
+                                                height: '50px',
                                             }}
                                         />
                                     </Box>
 
-                                    {/* Entry Type Dropdown */}
+                                   
                                     <Box>
                                         <Text
                                             as="label"
@@ -262,7 +286,8 @@ export default function CreateEntry() {
                                             mb="1"
                                             weight="bold"
                                             style={{
-                                                fontFamily: 'Caesar Dressing',
+                                                fontFamily: 'blackchancery',
+                                                fontSize: '25px',
                                                 color: '#2c1810',
                                             }}
                                         >
@@ -273,12 +298,14 @@ export default function CreateEntry() {
                                             onChange={(e) => setEntryTypeId(e.target.value)}
                                             style={{
                                                 width: '100%',
+                                                height: '40px',
                                                 padding: '0.5rem',
                                                 borderRadius: '4px',
                                                 border: '1px solid rgba(44, 24, 16, 0.3)',
                                                 fontSize: 'var(--font-size-2)',
-                                                fontFamily: 'Caesar Dressing',
+                                                fontFamily: 'blackchancery',
                                                 background: 'rgba(255, 255, 255, 0.5)',
+                                                marginTop: '10px',
                                             }}
                                         >
                                             <option value="">Select an entry type</option>
@@ -290,7 +317,7 @@ export default function CreateEntry() {
                                         </select>
                                     </Box>
 
-                                    {/* Emotions Checkboxes */}
+                                    
                                     <Box>
                                         <Text
                                             as="label"
@@ -298,8 +325,9 @@ export default function CreateEntry() {
                                             mb="2"
                                             weight="bold"
                                             style={{
-                                                fontFamily: 'Caesar Dressing',
+                                                fontFamily: 'BlackChancery',
                                                 color: '#2c1810',
+                                                fontSize: '30px',
                                             }}
                                         >
                                             How are you feeling? *
@@ -314,8 +342,10 @@ export default function CreateEntry() {
                                                     <Text
                                                         size="2"
                                                         style={{
-                                                            fontFamily: 'Caesar Dressing',
+                                                            fontFamily: 'blackchancery',
                                                             color: '#2c1810',
+                                                            fontSize: '22px',
+                                                            marginTop: '4px',
                                                         }}
                                                     >
                                                         {emotion.emotionName}
@@ -325,16 +355,17 @@ export default function CreateEntry() {
                                         </Flex>
                                     </Box>
 
-                                    {/* Action Buttons - STACKED VERTICALLY AND NARROWER */}
+                                 
                                     <Flex direction="column" gap="3" mt="2" align="start">
                                         <Button
                                             type="button"
                                             size="3"
                                             style={{
-                                                width: '70%',
-                                                fontFamily: 'Caesar Dressing',
+                                                width: '65%',
+                                                fontFamily: 'Nordic Chance',
                                                 background: '#5d7a4a',
                                                 color: 'white',
+                                                fontSize: '34px',
                                             }}
                                             onClick={handleSave}
                                             disabled={isLoading}
@@ -345,15 +376,16 @@ export default function CreateEntry() {
                                             type="button"
                                             size="3"
                                             style={{
-                                                width: '70%',
-                                                fontFamily: 'Caesar Dressing',
-                                                background: '#8b5a8f',
+                                                width: '65%',
+                                                fontFamily: 'Nordic Chance',
+                                                background: '#374228',
                                                 color: 'white',
+                                                fontSize: '34px',
                                             }}
                                             onClick={handleRelease}
                                             disabled={isLoading}
                                         >
-                                            {isLoading ? 'Releasing...' : '🎈 Release'}
+                                            {isLoading ? 'Releasing...' : 'Release'}
                                         </Button>
                                     </Flex>
                                 </Flex>
@@ -363,7 +395,7 @@ export default function CreateEntry() {
                 </Box>
             </Container>
 
-            {/* Release Ceremony Overlay */}
+          
             {showReleaseCeremony && (
                 <ReleaseCeremony
                     entry={entryToRelease}

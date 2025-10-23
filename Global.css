@@ -1,0 +1,41 @@
+:root {
+    /* Base font size that other elements can scale from */
+    font-size: 16px;
+
+    /* Responsive variables that adjust based on viewport width */
+    --scale-factor: min(1, max(0.7, calc(100vw / 1400)));
+
+    /* Common spacing */
+    --spacing-xs: calc(0.5rem * var(--scale-factor));
+    --spacing-sm: calc(1rem * var(--scale-factor));
+    --spacing-md: calc(2rem * var(--scale-factor));
+    --spacing-lg: calc(3rem * var(--scale-factor));
+    --spacing-xl: calc(5rem * var(--scale-factor));
+
+    /* Font sizes */
+    --font-size-small: calc(0.85rem * var(--scale-factor));
+    --font-size-body: calc(1rem * var(--scale-factor));
+    --font-size-medium: calc(1.5rem * var(--scale-factor));
+    --font-size-large: calc(2.5rem * var(--scale-factor));
+    --font-size-xlarge: calc(3.5rem * var(--scale-factor));
+
+    /* Container sizes */
+    --container-width: min(95vw, calc(1200px * var(--scale-factor)));
+
+    /* Element sizes */
+    --element-sm: calc(200px * var(--scale-factor));
+    --element-md: calc(400px * var(--scale-factor));
+    --element-lg: calc(600px * var(--scale-factor));
+}
+
+/* Make images responsive by default */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Scale containers */
+.container-responsive {
+    transform: scale(var(--scale-factor));
+    transform-origin: center top;
+}

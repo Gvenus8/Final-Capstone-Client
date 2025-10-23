@@ -107,7 +107,7 @@ export default function EditEntry() {
 
     return (
         <Container size="4" style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
-            {/* Notebook Background Container */}
+            
             <Box
                 style={{
                     backgroundImage: 'url(/images/notebook.png)',
@@ -120,13 +120,14 @@ export default function EditEntry() {
                 }}
             >
                 <Flex direction="column" gap="3">
-                    {/* Header with Cancel Button */}
+                
                     <Flex justify="between" align="center" style={{ marginBottom: '1rem' }}>
                         <Heading
                             size="7"
                             style={{
-                                fontFamily: 'Caesar Dressing',
+                                fontFamily: 'blackchancery',
                                 color: '#2c1810',
+                                fontSize: '40px',
                             }}
                         >
                             Edit Entry
@@ -135,9 +136,10 @@ export default function EditEntry() {
                             variant="ghost"
                             onClick={() => navigate(`/entries/${id}`)}
                             style={{
-                                fontFamily: 'Caesar Dressing',
-                                color: '#2c1810',
-                                background: 'transparent',
+                                fontFamily: 'blackchancery',
+                                color: '#c6d2b6',
+                                background: '#374228',
+                                fontSize: '30px',
                             }}
                         >
                             Cancel
@@ -151,11 +153,11 @@ export default function EditEntry() {
                     )}
 
                     <form onSubmit={handleUpdate}>
-                        {/* TWO COLUMN LAYOUT */}
-                        <Flex gap="8" style={{ marginTop: '1rem' }}>
-                            {/* LEFT COLUMN - Title & Content */}
+                      
+                        <Flex gap="8" style={{ marginTop: '3rem' }}>
+                          
                             <Flex direction="column" gap="3" style={{ flex: 1, height: '100%' }}>
-                                {/* Title */}
+                               
                                 <Box>
                                     <Text
                                         as="label"
@@ -163,8 +165,11 @@ export default function EditEntry() {
                                         mb="1"
                                         weight="bold"
                                         style={{
-                                            fontFamily: 'Caesar Dressing',
+                                            fontFamily: 'BlackChancery',
                                             color: '#2c1810',
+                                            fontSize: '34px',
+                                            marginTop: '1.0rem',
+
                                         }}
                                     >
                                         Title *
@@ -178,12 +183,16 @@ export default function EditEntry() {
                                             border: 'none',
                                             borderBottom: '1px solid rgba(44, 24, 16, 0.3)',
                                             borderRadius: '0',
-                                            fontFamily: 'Caesar Dressing',
+                                            fontFamily: 'BlackChancery',
+                                            fontSize: '28px',
+                                            marginTop: '10px',
+                                            height: '50px',
+
                                         }}
                                     />
                                 </Box>
 
-                                {/* Content - TAKES UP REMAINING SPACE */}
+                                
                                 <Box style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                                     <Text
                                         as="label"
@@ -191,31 +200,36 @@ export default function EditEntry() {
                                         mb="1"
                                         weight="bold"
                                         style={{
-                                            fontFamily: 'Caesar Dressing',
+                                            fontFamily: 'blackchancery',
                                             color: '#2c1810',
+                                            fontSize: '34px',
+                                            marginTop: '5px',
                                         }}
                                     >
                                         Content *
                                     </Text>
-                                    <TextArea
+                                    <textarea
                                         value={content}
                                         onChange={(e) => setContent(e.target.value)}
                                         placeholder="Write your thoughts here..."
                                         style={{
                                             background: 'transparent',
-                                            border: 'none',
-                                            fontFamily: 'Caesar Dressing',
+                                            border: '1px solid rgba(44, 24, 16, 0.3)',
+                                            fontFamily: 'blackchancery',
                                             resize: 'none',
                                             flex: 1,
-                                            minHeight: '400px',
+                                            minHeight: '500px',
+                                            fontSize: '28px ',
+                                            marginTop: '10px',
+                                            overflowY: 'auto',
                                         }}
                                     />
                                 </Box>
                             </Flex>
 
-                            {/* RIGHT COLUMN - Everything else */}
+                           
                             <Flex direction="column" gap="3" style={{ flex: 1 }}>
-                                {/* Recipient */}
+                                
                                 <Box>
                                     <Text
                                         as="label"
@@ -223,8 +237,9 @@ export default function EditEntry() {
                                         mb="1"
                                         weight="bold"
                                         style={{
-                                            fontFamily: 'Caesar Dressing',
+                                            fontFamily: 'blackchancery',
                                             color: '#2c1810',
+                                            fontSize: '34px',
                                         }}
                                     >
                                         Recipient *
@@ -238,12 +253,14 @@ export default function EditEntry() {
                                             border: 'none',
                                             borderBottom: '1px solid rgba(44, 24, 16, 0.3)',
                                             borderRadius: '0',
-                                            fontFamily: 'Caesar Dressing',
+                                            fontFamily: 'BlackChancery',
+                                            fontSize: '28px',
+                                            marginTop: '10px',
+                                            height: '50px',
                                         }}
                                     />
                                 </Box>
 
-                                {/* Entry Type Dropdown */}
                                 <Box>
                                     <Text
                                         as="label"
@@ -251,7 +268,8 @@ export default function EditEntry() {
                                         mb="1"
                                         weight="bold"
                                         style={{
-                                            fontFamily: 'Caesar Dressing',
+                                            fontFamily: 'blackchancery',
+                                            fontSize: '25px',
                                             color: '#2c1810',
                                         }}
                                     >
@@ -262,12 +280,14 @@ export default function EditEntry() {
                                         onChange={(e) => setEntryTypeId(e.target.value)}
                                         style={{
                                             width: '100%',
+                                            height: '40px',
                                             padding: '0.5rem',
                                             borderRadius: '4px',
                                             border: '1px solid rgba(44, 24, 16, 0.3)',
                                             fontSize: 'var(--font-size-2)',
-                                            fontFamily: 'Caesar Dressing',
+                                            fontFamily: 'blackchancery',
                                             background: 'rgba(255, 255, 255, 0.5)',
+                                            marginTop: '10px',
                                         }}
                                     >
                                         <option value="">Select an entry type</option>
@@ -279,7 +299,7 @@ export default function EditEntry() {
                                     </select>
                                 </Box>
 
-                                {/* Emotions Checkboxes */}
+                                
                                 <Box>
                                     <Text
                                         as="label"
@@ -287,8 +307,9 @@ export default function EditEntry() {
                                         mb="2"
                                         weight="bold"
                                         style={{
-                                            fontFamily: 'Caesar Dressing',
+                                            fontFamily: 'BlackChancery',
                                             color: '#2c1810',
+                                            fontSize: '30px',
                                         }}
                                     >
                                         How are you feeling? *
@@ -303,8 +324,10 @@ export default function EditEntry() {
                                                 <Text
                                                     size="2"
                                                     style={{
-                                                        fontFamily: 'Caesar Dressing',
+                                                        fontFamily: 'blackchancery',
                                                         color: '#2c1810',
+                                                        fontSize: '22px',
+                                                        marginTop: '4px',
                                                     }}
                                                 >
                                                     {emotion.emotionName}
@@ -314,16 +337,18 @@ export default function EditEntry() {
                                     </Flex>
                                 </Box>
 
-                                {/* Update Button */}
+
+                           
                                 <Flex direction="column" gap="3" mt="2" align="start">
                                     <Button
                                         type="submit"
                                         size="3"
                                         style={{
-                                            width: '70%',
-                                            fontFamily: 'Caesar Dressing',
+                                            width: '65%',
+                                            fontFamily: 'Nordic Chance',
                                             background: '#5d7a4a',
                                             color: 'white',
+                                            fontSize: '34px',
                                         }}
                                         disabled={isLoading}
                                     >

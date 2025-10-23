@@ -10,7 +10,7 @@ export default function ViewEntry() {
     const [error, setError] = useState('');
     const [isDeleting, setIsDeleting] = useState(false);
 
-    // Release ceremony state
+    
     const [showReleaseCeremony, setShowReleaseCeremony] = useState(false);
 
     const { id } = useParams();
@@ -33,7 +33,7 @@ export default function ViewEntry() {
     }, [id]);
 
     const handleRelease = () => {
-        // Show the release ceremony
+       
         setShowReleaseCeremony(true);
     };
 
@@ -42,7 +42,7 @@ export default function ViewEntry() {
         setIsDeleting(true);
 
         try {
-            // Delete the entry after ceremony
+         
             await deleteEntry(id);
             navigate('/entries');
         } catch (err) {
@@ -65,7 +65,7 @@ export default function ViewEntry() {
     if (loading) {
         return (
             <Container size="4" style={{ paddingTop: '2rem' }}>
-                <Text style={{ fontFamily: 'Caesar Dressing', color: '#2c1810' }}>
+                <Text style={{ fontFamily: 'blackchancery', color: '#2c1810' }}>
                     Loading entry...
                 </Text>
             </Container>
@@ -89,7 +89,7 @@ export default function ViewEntry() {
                         <Text
                             size="5"
                             style={{
-                                fontFamily: 'Caesar Dressing',
+                                fontFamily: 'blackchancery',
                                 color: '#2c1810',
                                 textAlign: 'center'
                             }}
@@ -99,7 +99,7 @@ export default function ViewEntry() {
                         <Button
                             onClick={() => navigate('/entries')}
                             style={{
-                                fontFamily: 'Caesar Dressing',
+                                fontFamily: 'blackchancery',
                                 background: '#5d7a4a',
                                 color: 'white',
                             }}
@@ -115,7 +115,7 @@ export default function ViewEntry() {
     return (
         <>
             <Container size="4" style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
-                {/* Notebook Background Container */}
+                
                 <Box
                     style={{
                         backgroundImage: 'url(/images/notebook.png)',
@@ -128,26 +128,27 @@ export default function ViewEntry() {
                     }}
                 >
                     <Flex direction="column" gap="3">
-                        {/* Back button */}
+                      
                         <Button
                             variant="ghost"
                             onClick={() => navigate('/entries')}
                             style={{
                                 alignSelf: 'flex-start',
-                                fontFamily: 'Caesar Dressing',
-                                color: '#2c1810',
+                                fontFamily: 'blackchancery',
+                                color: '#374228',
                                 background: 'transparent',
                                 marginBottom: '1rem',
+                                fontSize: '40px',
                             }}
                         >
                             ← Back to Entries
                         </Button>
 
-                        {/* TWO COLUMN LAYOUT */}
+                       
                         <Flex gap="8" style={{ marginTop: '1rem' }}>
-                            {/* LEFT COLUMN - Content */}
+                           
                             <Flex direction="column" gap="3" style={{ flex: 1 }}>
-                                {/* Content section */}
+                               
                                 <Box style={{ flex: 1 }}>
                                     <Text
                                         size="2"
@@ -155,8 +156,11 @@ export default function ViewEntry() {
                                         style={{
                                             display: 'block',
                                             marginBottom: '0.5rem',
-                                            fontFamily: 'Caesar Dressing',
+                                            fontFamily: 'blackchancery',
                                             color: '#2c1810',
+                                            fontSize: '35px',
+                                            textAlign: 'center',
+                                            borderBottom: '2px solid rgba(44, 24, 16, 0.2)',
                                         }}
                                     >
                                         Message:
@@ -166,8 +170,10 @@ export default function ViewEntry() {
                                         style={{
                                             whiteSpace: 'pre-wrap',
                                             lineHeight: '1.6',
-                                            fontFamily: 'Caesar Dressing',
+                                            fontFamily: 'blackchancery',
                                             color: '#2c1810',
+                                            fontSize: '30px',
+                                            marginTop: '0.5rem',
                                         }}
                                     >
                                         {entry.content}
@@ -175,8 +181,8 @@ export default function ViewEntry() {
                                 </Box>
                             </Flex>
 
-                            {/* RIGHT COLUMN - Metadata & Actions */}
-                            <Flex direction="column" gap="3" style={{ flex: 1 }}>
+                            
+                            <Flex direction="column" gap="5" style={{ flex: 1 }}>
                                 {/* Title */}
                                 <Box>
                                     <Text
@@ -184,9 +190,13 @@ export default function ViewEntry() {
                                         weight="bold"
                                         style={{
                                             display: 'block',
-                                            marginBottom: '0.5rem',
-                                            fontFamily: 'Caesar Dressing',
+                                            marginBottom: '20px',
+                                            fontFamily: 'blackchancery',
                                             color: '#2c1810',
+                                            fontSize: '30px',
+                                            textAlign: 'center',
+                                            borderBottom: '2px solid rgba(44, 24, 16, 0.2)',
+                                            
                                         }}
                                     >
                                         Title:
@@ -195,24 +205,31 @@ export default function ViewEntry() {
                                         size="4"
                                         weight="bold"
                                         style={{
-                                            fontFamily: 'Caesar Dressing',
+                                            fontFamily: 'blackchancery',
                                             color: '#2c1810',
+                                            fontSize: '35px',
+                                            paddingBottom: '10px',
+                                            textAlign: 'center',
+
                                         }}
                                     >
                                         {entry.title}
                                     </Text>
                                 </Box>
 
-                                {/* Entry Type Badge */}
+                                
                                 <Box>
                                     <Text
                                         size="2"
                                         weight="bold"
                                         style={{
                                             display: 'block',
-                                            marginBottom: '0.5rem',
-                                            fontFamily: 'Caesar Dressing',
+                                            marginBottom: '1.1rem',
+                                            fontFamily: 'blackchancery',
                                             color: '#2c1810',
+                                            fontSize: '30px',
+                                            textAlign: 'center',
+                                            borderBottom: '2px solid rgba(44, 24, 16, 0.2)',
                                         }}
                                     >
                                         Entry Type:
@@ -220,25 +237,31 @@ export default function ViewEntry() {
                                     <Badge
                                         size="2"
                                         style={{
-                                            fontFamily: 'Caesar Dressing',
+                                            fontFamily: 'blackchancery',
                                             background: 'rgba(93, 122, 74, 0.2)',
                                             color: '#2c1810',
+                                            fontSize: '35px',
+                                            textAlign: 'center',
+                                            marginTop: '0.5rem',
                                         }}
                                     >
                                         {entry.entryType.typeName}
                                     </Badge>
                                 </Box>
 
-                                {/* Date */}
+                               
                                 <Box>
                                     <Text
                                         size="2"
                                         weight="bold"
                                         style={{
                                             display: 'block',
-                                            marginBottom: '0.5rem',
-                                            fontFamily: 'Caesar Dressing',
+                                            marginBottom: '1.7rem',
+                                            fontFamily: 'blackchancery',
                                             color: '#2c1810',
+                                            fontSize: '30px',
+                                            textAlign: 'center',
+                                            borderBottom: '2px solid rgba(44, 24, 16, 0.2)',
                                         }}
                                     >
                                         Date:
@@ -246,24 +269,28 @@ export default function ViewEntry() {
                                     <Text
                                         size="2"
                                         style={{
-                                            fontFamily: 'Caesar Dressing',
+                                            fontFamily: 'blackchancery',
                                             color: '#2c1810',
+                                            fontSize: '35px',
                                         }}
                                     >
                                         {formatDate(entry.createdAt)}
                                     </Text>
                                 </Box>
 
-                                {/* Recipient */}
+                               
                                 <Box>
                                     <Text
                                         size="2"
                                         weight="bold"
                                         style={{
                                             display: 'block',
-                                            marginBottom: '0.5rem',
-                                            fontFamily: 'Caesar Dressing',
+                                            marginBottom: '1.3rem',
+                                            fontFamily: 'blackchancery',
                                             color: '#2c1810',
+                                            fontSize: '30px',
+                                            textAlign: 'center',
+                                            borderBottom: '2px solid rgba(44, 24, 16, 0.2)',
                                         }}
                                     >
                                         To:
@@ -271,24 +298,28 @@ export default function ViewEntry() {
                                     <Text
                                         size="3"
                                         style={{
-                                            fontFamily: 'Caesar Dressing',
+                                            fontFamily: 'blackchancery',
                                             color: '#2c1810',
+                                            fontSize: '35px',
                                         }}
                                     >
                                         {entry.recipient}
                                     </Text>
                                 </Box>
 
-                                {/* Emotions */}
+                                
                                 <Box>
                                     <Text
                                         size="2"
                                         weight="bold"
                                         style={{
                                             display: 'block',
-                                            marginBottom: '0.5rem',
-                                            fontFamily: 'Caesar Dressing',
+                                            marginBottom: '1rem',
+                                            fontFamily: 'blackchancery',
                                             color: '#2c1810',
+                                            fontSize: '30px',
+                                            textAlign: 'center',
+                                            borderBottom: '2px solid rgba(44, 24, 16, 0.2)',
                                         }}
                                     >
                                         Emotions:
@@ -299,9 +330,11 @@ export default function ViewEntry() {
                                                 key={emotion.id}
                                                 variant="soft"
                                                 style={{
-                                                    fontFamily: 'Caesar Dressing',
+                                                    fontFamily: 'blackchancery',
                                                     background: 'rgba(139, 90, 143, 0.2)',
                                                     color: '#2c1810',
+                                                    fontSize: '35px',
+                                                    marginTop: '0.5rem',
                                                 }}
                                             >
                                                 {emotion.emotionName}
@@ -312,16 +345,17 @@ export default function ViewEntry() {
 
                                 <Separator size="4" style={{ background: 'rgba(44, 24, 16, 0.2)', marginTop: '1rem' }} />
 
-                                {/* Action Buttons */}
+                                
                                 <Flex direction="column" gap="3" mt="2">
                                     <Button
                                         size="3"
                                         onClick={() => navigate(`/entries/${id}/edit`)}
                                         style={{
                                             width: '70%',
-                                            fontFamily: 'Caesar Dressing',
+                                            fontFamily: 'Nordic Chance',
                                             background: '#5d7a4a',
                                             color: 'white',
+                                            fontSize: '34px',
                                         }}
                                     >
                                         Edit Entry
@@ -332,12 +366,13 @@ export default function ViewEntry() {
                                         disabled={isDeleting}
                                         style={{
                                             width: '70%',
-                                            fontFamily: 'Caesar Dressing',
+                                            fontFamily: 'Nordic Chance',
                                             background: '#8b5a8f',
                                             color: 'white',
+                                            fontSize: '34px',
                                         }}
                                     >
-                                        {isDeleting ? 'Releasing...' : '🎈 Release & Let Go'}
+                                        {isDeleting ? 'Releasing...' : 'Release Entry'}
                                     </Button>
                                 </Flex>
                             </Flex>
@@ -346,7 +381,7 @@ export default function ViewEntry() {
                 </Box>
             </Container>
 
-            {/* Release Ceremony Overlay */}
+           
             {showReleaseCeremony && entry && (
                 <ReleaseCeremony
                     entry={{

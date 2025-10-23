@@ -1,15 +1,96 @@
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate} from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Flex, Box, Text, Button, Separator, Card } from '@radix-ui/themes';
+import { useEffect } from 'react';
 
 export default function Layout() {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
 
+    useEffect(() => {
+
+        if (!user) return;
+
+        console.log("Setting up Spotify refresh interval");
+
+        const refreshSpotifyPlayer = () => {
+            const spotifyIframe = document.querySelector('iframe[src*="spotify.com"]');
+            if (spotifyIframe) {
+               
+                const originalSrc = spotifyIframe.src;
+                spotifyIframe.src = 'about:blank';
+
+
+                setTimeout(() => {
+                    spotifyIframe.src = originalSrc;
+                    console.log("Spotify player refreshed");
+                }, 100);
+            }
+        };
+
+        const refreshInterval = setInterval(refreshSpotifyPlayer, 45 * 60 * 1000);
+
+        return () => {
+            clearInterval(refreshInterval);
+            console.log("Spotify refresh interval cleared");
+        };
+    }, [user]);
+
     const handleLogout = async () => {
         await logout();
         navigate('/auth/login');
     };
+    const handleEmergency = () => {
+        window.open('https://www.google.com/maps/search/emergency/@36.1641922,-86.7897662,13.42z?entry=ttu&g_ep=EgoyMDI1MTAxNC4wIKXMDSoASAFQAw%3D%3D', '_blank');
+    };
+
+    const bookGradients = {
+        wellness: 'linear-gradient(to left, #504c3f 0%, #504c3f 4%, #aa950fff 5%, #6f8550 6%,  #6f8550 19%, #aa950fff 20%, #504c3f 21%, #504c3f 80%, #aa950fff 81%, #6f8550 82%, #6f8550 90%, #aa950fff 91%, #504c3f 92%, #D1d5cc 100%)',
+        wellness2: 'linear-gradient(to left, #504c3f 0%, #504c3f 4%, #aa950fff 5%, #5d6f43 6%,  #5d6f43 19%, #aa950fff 20%, #504c3f 21%, #504c3f 80%, #aa950fff 81%, #5d6f43 82%, #5d6f43 90%, #aa950fff 91%, #504c3f 92%, #D1d5cc 100%)',
+        wellness3: 'linear-gradient(to left, #504c3f 0%, #504c3f 4%, #aa950fff 5%, #4a5835 6%,  #4a5835 19%, #aa950fff 20%, #504c3f 21%, #504c3f 80%, #aa950fff 81%, #4a5835 82%, #4a5835 90%, #aa950fff 91%, #504c3f 92%, #D1d5cc 100%)',
+        wellness4: 'linear-gradient(to left, #504c3f 0%, #504c3f 4%, #aa950fff 5%, #374228 6%,  #374228 19%, #aa950fff 20%, #504c3f 21%, #504c3f 80%, #aa950fff 81%, #374228 82%, #374228 90%, #aa950fff 91%, #504c3f 92%, #D1d5cc 100%)',
+        wellness5: 'linear-gradient(to left, #504c3f 0%, #504c3f 4%, #aa950fff 5%, #14180eff 6%,  #14180eff 19%, #aa950fff 20%, #504c3f 21%, #504c3f 80%, #aa950fff 81%, #14180eff 82%, #14180eff 90%, #aa950fff 91%, #504c3f 92%, #D1d5cc 100%)',
+        eir: 'linear-gradient(to right, #504c3f 0%, #504c3f 4%, #aa950fff 5%, #5d785f 6%,  #5d785f 19%, #aa950fff 20%, #504c3f 21%, #504c3f 80%, #aa950fff 81%, #5d785f 82%, #5d785f 90%, #aa950fff 91%, #504c3f 92%, #D1d5cc 100%)',
+        eir2: 'linear-gradient(to right, #504c3f 0%, #504c3f 4%, #aa950fff 5%, #4d644f 6%,  #4d644f 19%, #aa950fff 20%, #504c3f 21%, #504c3f 80%, #aa950fff 81%, #4d644f 82%, #4d644f 90%, #aa950fff 91%, #504c3f 92%, #D1d5cc 100%)',
+        eir3: 'linear-gradient(to right, #504c3f 0%, #504c3f 4%, #aa950fff 5%, #3e503f 6%,  #3e503f 19%, #aa950fff 20%, #504c3f 21%, #504c3f 80%, #aa950fff 81%, #3e503f 82%, #3e503f 90%, #aa950fff 91%, #504c3f 92%, #D1d5cc 100%)',
+        eir4: 'linear-gradient(to right, #504c3f 0%, #504c3f 4%, #aa950fff 5%, #2e3c2f 6%,  #2e3c2f 19%, #aa950fff 20%, #504c3f 21%, #504c3f 80%, #aa950fff 81%, #2e3c2f 82%, #2e3c2f 90%, #aa950fff 91%, #504c3f 92%, #D1d5cc 100%)',
+    };
+
+    const bookCardStyle = {
+        border: 'none',
+        borderRadius: '15px',
+        padding: '1.1rem 1rem',
+        cursor: 'pointer',
+        position: 'relative'
+    };
+
+    const runeBoxStyle = {
+        width: '38px',
+        height: '48px',
+        borderRadius: '20%',
+        backgroundColor: 'rgba(0, 0, 0, 0.25)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        border: '2px solid #aa950fff',
+        boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.3)',
+        color: '#aa950fff',
+        fontSize: '22px'
+    };
+
+    const titleStyle = {
+        fontFamily: "Nordic Chance",
+        fontWeight: 250,
+        fontStyle: "normal",
+        fontSize: '35px',
+        display: 'block',
+        color: '#c5b39f',
+        textShadow: '1px 4px 2px rgba(0,0,0,0.5)',
+        letterSpacing: '2px',
+
+    };
+
+
 
     return (
         <Box
@@ -24,596 +105,285 @@ export default function Layout() {
             }}
         >
             <Flex style={{ minHeight: '100vh', position: 'relative', zIndex: 1 }}>
-                {/* Sidebar - Ancient Library */}
+            
                 <Flex
                     direction="column"
                     style={{
-                        width: '300px',
+                        width: '350px',
                         position: 'relative',
                         overflow: 'hidden',
                         zIndex: 10,
                     }}
                 >
-                    <style>{`
-@keyframes runeGlow {
-    0%, 100% {
-        text-shadow: 0 0 5px rgba(255, 215, 120, 0.3);
-    }
-    50% {
-        text-shadow: 0 0 15px rgba(255, 215, 120, 0.6), 0 0 25px rgba(255, 215, 120, 0.3);
-    }
-}
-
-.ancient-book {
-    position: relative;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    transform-origin: left center;
-    transform-style: preserve-3d;
-    box-shadow:
-        inset -3px 0 8px rgba(0,0,0,0.4),
-        inset 3px 0 5px rgba(255,255,255,0.05),
-        4px 4px 12px rgba(0,0,0,0.5),
-        0 0 0 1px rgba(90, 61, 43, 0.3) !important;
-    border-left: 4px solid rgba(30, 20, 10, 0.8) !important;
-    overflow: visible !important;
-}
-
-.ancient-book::before {
-    content: '';
-    position: absolute;
-    left: -4px;
-    top: 0;
-    bottom: 0;
-    width: 18px;
-    background:
-        repeating-linear-gradient(
-            0deg,
-            rgba(0,0,0,0.4) 0px,
-            rgba(0,0,0,0.4) 1px,
-            transparent 1px,
-            transparent 3px,
-            rgba(139, 90, 43, 0.3) 3px,
-            rgba(139, 90, 43, 0.3) 4px,
-            transparent 4px,
-            transparent 8px
-        ),
-        linear-gradient(90deg,
-            rgba(0,0,0,0.6) 0%,
-            rgba(90, 61, 43, 0.4) 20%,
-            rgba(139, 90, 43, 0.2) 40%,
-            transparent 70%
-        );
-    border-radius: 15px 0 0 15px;
-    z-index: 1;
-}
-
-.ancient-book::after {
-    content: '';
-    position: absolute;
-    right: -1px;
-    top: 0;
-    bottom: 0;
-    width: 6px;
-    background:
-        repeating-linear-gradient(
-            0deg,
-            rgba(255, 215, 120, 0.1) 0px,
-            rgba(255, 215, 120, 0.1) 2px,
-            transparent 2px,
-            transparent 4px
-        ),
-        linear-gradient(90deg,
-            transparent 0%,
-            rgba(255, 215, 120, 0.15) 50%,
-            rgba(139, 90, 43, 0.1) 100%);
-    border-radius: 0 15px 15px 0;
-}
-
-.ancient-book:hover {
-    transform: translateX(12px) rotateY(5deg) scale(1.02) !important;
-    box-shadow:
-        inset -4px 0 12px rgba(0,0,0,0.5),
-        inset 4px 0 8px rgba(255,255,255,0.08),
-        8px 8px 25px rgba(0,0,0,0.6),
-        0 0 0 1px rgba(139, 90, 43, 0.5),
-        0 0 20px rgba(255, 215, 120, 0.1) !important;
-}
-
-.ancient-book:hover::before {
-    background:
-        repeating-linear-gradient(
-            0deg,
-            rgba(0,0,0,0.5) 0px,
-            rgba(0,0,0,0.5) 1px,
-            transparent 1px,
-            transparent 3px,
-            rgba(255, 215, 120, 0.4) 3px,
-            rgba(255, 215, 120, 0.4) 4px,
-            transparent 4px,
-            transparent 8px
-        ),
-        linear-gradient(90deg,
-            rgba(0,0,0,0.7) 0%,
-            rgba(139, 90, 43, 0.5) 20%,
-            rgba(255, 215, 120, 0.3) 40%,
-            transparent 70%
-        );
-}
-
-.book-wellness {
-    background: linear-gradient(to left,
-        #7a2f00 0%, #7a2f00 4%, #aa950fff 5%, #7a2f00 7%, #aa950fff 8%,
-        #7a2f00 9%, #aa950fff 11%, #7a2f00 12%, #aa950fff 13%, #7a2f00 14%,
-        #7a2f00 70%, #aa950fff 71%, #505e3c 72%, #505e3c 90%,
-        #aa950fff 91%, #7a2f00 92%, #D1d5cc 100%) !important;
-}
-
-.book-inscribe {
-    background: linear-gradient(to left,
-        #7a2f00 0%, #7a2f00 4%, #aa950fff 5%, #7a2f00 7%, #aa950fff 8%,
-        #7a2f00 9%, #aa950fff 11%, #7a2f00 12%, #aa950fff 13%, #7a2f00 14%,
-        #7a2f00 70%, #aa950fff 71%, #2a2f1d 72%, #2a2f1d 90%,
-        #aa950fff 91%, #7a2f00 92%, #D1d5cc 100%) !important;
-}
-
-.book-chronicles {
-    background: linear-gradient(to left,
-        #7a2f00 0%, #7a2f00 4%, #aa950fff 5%, #7a2f00 7%, #aa950fff 8%,
-        #7a2f00 9%, #aa950fff 11%, #7a2f00 12%, #aa950fff 13%, #7a2f00 14%,
-        #7a2f00 70%, #aa950fff 71%, #858d32 72%, #858d32 90%,
-        #aa950fff 91%, #7a2f00 92%, #D1d5cc 100%) !important;
-}
-
-.book-runes {
-    background: linear-gradient(to left,
-        #7a2f00 0%, #7a2f00 4%, #aa950fff 5%, #7a2f00 7%, #aa950fff 8%,
-        #7a2f00 9%, #aa950fff 11%, #7a2f00 12%, #aa950fff 13%, #7a2f00 14%,
-        #7a2f00 70%, #aa950fff 71%, #adb595 72%, #adb595 90%,
-        #aa950fff 91%, #7a2f00 92%, #D1d5cc 100%) !important;
-}
-
-.book-wisdom {
-    background: linear-gradient(to left,
-        #7a2f00 0%, #7a2f00 4%, #aa950fff 5%, #7a2f00 7%, #aa950fff 8%,
-        #7a2f00 9%, #aa950fff 11%, #7a2f00 12%, #aa950fff 13%, #7a2f00 14%,
-        #7a2f00 70%, #aa950fff 71%, #d1d5cc 72%, #d1d5cc 90%,
-        #aa950fff 91%, #7a2f00 92%, #D1d5cc 100%) !important;
-}
-
-.spine-rune {
-    animation: runeGlow 3s ease-in-out infinite;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
-    font-size: 22px;
-}
-
-.spine-title {
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5), 0 0 10px rgba(255, 215, 120, 0.2);
-    letter-spacing: 1px;
-    font-weight: 600;
-}
-
-.knotwork-decoration {
-    position: absolute;
-    left: 2px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 14px;
-    height: 60%;
-    background-image:
-        radial-gradient(circle at 50% 20%, rgba(139, 90, 43, 0.4) 1px, transparent 1px),
-        radial-gradient(circle at 50% 40%, rgba(139, 90, 43, 0.4) 1px, transparent 1px),
-        radial-gradient(circle at 50% 60%, rgba(139, 90, 43, 0.4) 1px, transparent 1px),
-        radial-gradient(circle at 50% 80%, rgba(139, 90, 43, 0.4) 1px, transparent 1px);
-    background-size: 14px 25%;
-    background-repeat: no-repeat;
-    pointer-events: none;
-    z-index: 2;
-}
-`}</style>
-
-                    {/* TOP SECTION - Transparent to show watercolor */}
-                    <Box style={{ padding: '1.5rem 1.5rem 1rem 1.5rem', background: 'transparent' }}>
-                        <Box mb="3">
+                  
+                    <Box style={{ padding: '1.5rem 1.5rem 1rem 0.5rem', background: 'transparent' }}>
+                        <Box mb="0">
                             <img
                                 src="/images/Eirlogo.png"
                                 alt="Eir Logo"
                                 style={{
-                                    width: '250px',
-                                    height: 'auto',
+                                    width: '300px',
+                                    height: '300px',
                                     marginBottom: '0.5rem',
                                     filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.5))',
                                 }}
                             />
                         </Box>
-                        <Separator size="4" style={{ background: 'rgba(170, 149, 15, 0.4)' }} />
+                        <Separator size="4" style={{ background: 'rgba(170, 149, 15, 0.4)', }} />
                     </Box>
 
-                    {/* MIDDLE SECTION - Transparent to show watercolor */}
-                    <Box
-                        style={{
-                            flex: 1,
-                            background: 'transparent',
-                            padding: '1rem 1.5rem',
-                        }}
-                    >
+                    
+                    <Box style={{ flex: 1, background: 'transparent', padding: '1rem 1.0rem', border: '1px solid goldenrod)', }}>
                         <Flex direction="column" gap="2" style={{ height: '100%' }}>
                             <Link to="/dashboard" style={{ textDecoration: 'none' }}>
-                                <Card
-                                    className="ancient-book book-wellness"
-                                    style={{
-                                        border: 'none',
-                                        borderRadius: '15px',
-                                        padding: '1.1rem 1rem',
-                                        cursor: 'pointer',
-                                        position: 'relative',
-                                    }}
-                                >
-                                    <div className="knotwork-decoration"></div>
-                                    <Flex align="center" gap="3">
-                                        <Box
-                                            className="spine-rune"
-                                            style={{
-                                                width: '38px',
-                                                height: '48px',
-                                                borderRadius: '20%',
-                                                backgroundColor: 'rgba(0, 0, 0, 0.25)',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                border: '2px solid #aa950fff',
-                                                boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.3)',
-                                                marginLeft: '12px',
-                                                color: '#aa950fff',
-                                                fontSize: '22px',
-                                            }}
-                                        >
-                                            ᚺ
-                                        </Box>
-                                        <Box style={{ flex: 1 }}>
-                                            <Text className="spine-title" style={{
-                                                color: '#aa950fff',
-                                                fontFamily: "Caesar Dressing",
-                                                fontSize: '20px',
-                                                display: 'block',
-                                                marginLeft: '12px',
-                                            }}>
-                                                DASHBOARD
-                                            </Text>
-                                            <Text style={{
-                                                color: '#aa950fff',
-                                                fontSize: '11px',
-                                                fontFamily: "Caesar Dressing",
-                                                marginLeft: '12px',
-                                            }}>
-                                                Hall of Wellness
-                                            </Text>
+                                <Box style={{ ...bookCardStyle, background: bookGradients.wellness }}>
+                                    <Flex align="center" gap="3" style={{ flexDirection: 'row-reverse' }}>
+                                        <Box style={{ ...runeBoxStyle, marginRight: '5px' }}>ᚺ</Box>
+                                        <Box style={{ flex: 1, textAlign: 'right' }}>
+                                            <Text style={{ ...titleStyle, marginRight: '5px' }}>DASHBOARD</Text>
                                         </Box>
                                     </Flex>
-                                </Card>
+                                </Box>
                             </Link>
 
+
                             <Link to="/entries/new" style={{ textDecoration: 'none' }}>
-                                <Card
-                                    className="ancient-book book-inscribe"
-                                    style={{
-                                        border: 'none',
-                                        borderRadius: '15px',
-                                        padding: '1.1rem 1rem',
-                                        cursor: 'pointer',
-                                        position: 'relative',
-                                    }}
-                                >
-                                    <div className="knotwork-decoration"></div>
-                                    <Flex align="center" gap="3">
-                                        <Box
-                                            className="spine-rune"
-                                            style={{
-                                                width: '38px',
-                                                height: '48px',
-                                                borderRadius: '20%',
-                                                backgroundColor: 'rgba(0, 0, 0, 0.25)',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                border: '2px solid #aa950fff',
-                                                boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.3)',
-                                                marginLeft: '12px',
-                                                color: '#aa950fff',
-                                                fontSize: '22px',
-                                            }}
-                                        >
-                                            ᚱ
-                                        </Box>
-                                        <Box style={{ flex: 1 }}>
-                                            <Text className="spine-title" style={{
-                                                color: '#aa950fff',
-                                                fontFamily: "Caesar Dressing",
-                                                fontSize: '20px',
-                                                display: 'block',
-                                                marginLeft: '12px',
-                                            }}>
-                                                NEW ENTRY
-                                            </Text>
-                                            <Text style={{
-                                                color: '#aa950fff',
-                                                fontSize: '11px',
-                                                fontFamily: "Caesar Dressing",
-                                                marginLeft: '12px',
-                                            }}>
-                                                Inscribe Your Tale
-                                            </Text>
+                                <Box style={{ ...bookCardStyle, background: bookGradients.wellness2 }}>
+                                    <Flex align="center" gap="3" style={{ flexDirection: 'row-reverse' }}>
+                                        <Box style={{ ...runeBoxStyle, marginRight: '5px' }}>ᚱ</Box>
+                                        <Box style={{ flex: 1, textAlign: 'right' }}>
+                                            <Text style={{ ...titleStyle, marginRight: '5px' }}>NEW ENTRY</Text>
                                         </Box>
                                     </Flex>
-                                </Card>
+                                </Box>
                             </Link>
 
                             <Link to="/entries" style={{ textDecoration: 'none' }}>
-                                <Card
-                                    className="ancient-book book-chronicles"
-                                    style={{
-                                        border: 'none',
-                                        borderRadius: '15px',
-                                        padding: '1.1rem 1rem',
-                                        cursor: 'pointer',
-                                        position: 'relative',
-                                    }}
-                                >
-                                    <div className="knotwork-decoration"></div>
-                                    <Flex align="center" gap="3">
-                                        <Box
-                                            className="spine-rune"
-                                            style={{
-                                                width: '38px',
-                                                height: '48px',
-                                                borderRadius: '20%',
-                                                backgroundColor: 'rgba(0, 0, 0, 0.25)',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                border: '2px solid #aa950fff',
-                                                boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.3)',
-                                                marginLeft: '12px',
-                                                color: '#aa950fff',
-                                                fontSize: '22px',
-                                            }}
-                                        >
-                                            ᛊ
-                                        </Box>
-                                        <Box style={{ flex: 1 }}>
-                                            <Text className="spine-title" style={{
-                                                color: '#aa950fff',
-                                                fontFamily: "Caesar Dressing",
-                                                fontSize: '20px',
-                                                display: 'block',
-                                                marginLeft: '12px',
-                                            }}>
-                                                JOURNAL
-                                            </Text>
-                                            <Text style={{
-                                                color: '#aa950fff',
-                                                fontSize: '11px',
-                                                fontFamily: "Caesar Dressing",
-                                                marginLeft: '12px',
-                                            }}>
-                                                Sacred Chronicles
-                                            </Text>
+                                <Box style={{ ...bookCardStyle, background: bookGradients.wellness3 }}>
+                                    <Flex align="center" gap="3" style={{ flexDirection: 'row-reverse' }}>
+                                        <Box style={{ ...runeBoxStyle, marginRight: '5px' }}>ᛊ</Box>
+                                        <Box style={{ flex: 1, textAlign: 'right' }}>
+                                            <Text style={{ ...titleStyle, marginRight: '25px' }}>JOURNAL</Text>
                                         </Box>
                                     </Flex>
-                                </Card>
+                                </Box>
                             </Link>
 
                             <Link to="/profile" style={{ textDecoration: 'none' }}>
-                                <Card
-                                    className="ancient-book book-runes"
-                                    style={{
-                                        border: 'none',
-                                        borderRadius: '15px',
-                                        padding: '1.1rem 1rem',
-                                        cursor: 'pointer',
-                                        position: 'relative',
-                                    }}
-                                >
-                                    <div className="knotwork-decoration"></div>
-                                    <Flex align="center" gap="3">
-                                        <Box
-                                            className="spine-rune"
-                                            style={{
-                                                width: '38px',
-                                                height: '48px',
-                                                borderRadius: '20%',
-                                                backgroundColor: 'rgba(0, 0, 0, 0.25)',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                border: '2px solid #aa950fff',
-                                                boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.3)',
-                                                marginLeft: '12px',
-                                                color: '#aa950fff',
-                                                fontSize: '22px',
-                                            }}
-                                        >
-                                            ᛗ
-                                        </Box>
-                                        <Box style={{ flex: 1 }}>
-                                            <Text className="spine-title" style={{
-                                                color: '#aa950fff',
-                                                fontFamily: "Caesar Dressing",
-                                                fontSize: '20px',
-                                                display: 'block',
-                                                marginLeft: '12px',
-                                            }}>
-                                                PROFILE
-                                            </Text>
-                                            <Text style={{
-                                                color: '#aa950fff',
-                                                fontSize: '11px',
-                                                fontFamily: "Caesar Dressing",
-                                                marginLeft: '12px',
-                                            }}>
-                                                Your Runes
-                                            </Text>
+                                <Box style={{ ...bookCardStyle, background: bookGradients.wellness4 }}>
+                                    <Flex align="center" gap="3" style={{ flexDirection: 'row-reverse' }}>
+                                        <Box style={{ ...runeBoxStyle, marginRight: '5px' }}>ᛗ</Box>
+                                        <Box style={{ flex: 1, textAlign: 'right' }}>
+                                            <Text style={{ ...titleStyle, marginRight: '30px' }}>PROFILE</Text>
                                         </Box>
                                     </Flex>
-                                </Card>
+                                </Box>
                             </Link>
 
                             {user?.isAdmin && (
                                 <Link to="/admin" style={{ textDecoration: 'none' }}>
-                                    <Card
-                                        className="ancient-book book-wisdom"
-                                        style={{
-                                            border: 'none',
-                                            borderRadius: '15px',
-                                            padding: '1.1rem 1rem',
-                                            cursor: 'pointer',
-                                            position: 'relative',
-                                        }}
-                                    >
-                                        <div className="knotwork-decoration"></div>
-                                        <Flex align="center" gap="3">
-                                            <Box
-                                                className="spine-rune"
-                                                style={{
-                                                    width: '38px',
-                                                    height: '48px',
-                                                    borderRadius: '20%',
-                                                    backgroundColor: 'rgba(0, 0, 0, 0.25)',
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                    border: '2px solid #aa950fff',
-                                                    boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.3)',
-                                                    marginLeft: '12px',
-                                                    color: '#aa950fff',
-                                                    fontSize: '22px',
-                                                }}
-                                            >
-                                                ᚹ
-                                            </Box>
-                                            <Box style={{ flex: 1 }}>
-                                                <Text className="spine-title" style={{
-                                                    color: '#aa950fff',
-                                                    fontFamily: "Caesar Dressing",
-                                                    fontSize: '20px',
-                                                    display: 'block',
-                                                    marginLeft: '12px',
-                                                }}>
-                                                    ADMIN
-                                                </Text>
-                                                <Text style={{
-                                                    color: '#aa950fff',
-                                                    fontSize: '11px',
-                                                    fontFamily: "Caesar Dressing",
-                                                    marginLeft: '12px',
-                                                }}>
-                                                    Elder's Wisdom
-                                                </Text>
+                                    <Box style={{ ...bookCardStyle, background: bookGradients.wellness5 }}>
+                                        <Flex align="center" gap="3" style={{ flexDirection: 'row-reverse' }}>
+                                            <Box style={{ ...runeBoxStyle, marginRight: '5px' }}>ᚹ</Box>
+                                            <Box style={{ flex: 1, textAlign: 'right' }}>
+                                                <Text style={{ ...titleStyle, marginRight: '40px' }}>ADMIN</Text>
                                             </Box>
                                         </Flex>
-                                    </Card>
+                                    </Box>
                                 </Link>
                             )}
                         </Flex>
                     </Box>
 
-                    {/* BOTTOM SECTION - Transparent to show watercolor */}
-                    <Box style={{ padding: '1rem 1.5rem 1.5rem 1.5rem', background: 'transparent' }}>
-                        <Separator size="4" style={{ background: 'rgba(170, 149, 15, 0.4)', marginBottom: '1rem' }} />
 
-                        <Card
-                            style={{
-                                background: 'linear-gradient(135deg, #8b1e1e 0%, #b32424 50%, #d63031 100%)',
-                                borderRadius: '15px',
-                                padding: '1rem',
-                                border: '2px solid rgba(139, 30, 30, 0.6)',
-                                boxShadow: '0 8px 25px rgba(139, 30, 30, 0.4), inset 0 2px 4px rgba(0,0,0,0.3)',
-                                marginBottom: '1rem',
-                            }}
-                        >
-                            <Flex align="center" gap="3">
-                                <Box
-                                    style={{
-                                        width: '40px',
-                                        height: '40px',
-                                        borderRadius: '50%',
-                                        backgroundColor: '#bac4a7',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        fontSize: '20px',
-                                        border: '2px solid rgba(255, 255, 255, 0.2)',
-                                    }}
-                                >
-                                    ᚦ
-                                </Box>
-                                <Box>
-                                    <Text size="3" weight="bold" style={{
-                                        color: '#fffef0',
-                                        fontFamily: "Caesar Dressing",
-                                        textShadow: '1px 1px 3px rgba(0,0,0,0.5)',
-                                    }}>
-                                        EMERGENCY
-                                    </Text>
-                                    <Text size="1" style={{
-                                        color: 'rgba(255,254,240,0.8)',
-                                        fontFamily: "Caesar Dressing",
-                                        fontSize: '11px',
-                                    }}>
-                                        Sacred Resources
-                                    </Text>
-                                </Box>
-                            </Flex>
-                        </Card>
-
-                        <Separator size="4" style={{ background: 'rgba(170, 149, 15, 0.4)', marginBottom: '1rem' }} />
-
-                        <Box>
-                            <Text size="2" style={{
-                                color: 'rgba(186, 196, 167, 0.8)',
-                                fontFamily: "Caesar Dressing",
-                                fontSize: '13px',
-                            }}>
-                                Keeper of this Tome
-                            </Text>
-                            <Text size="3" weight="medium"
-                                style={{
-                                    display: 'block',
-                                    marginTop: '0.25rem',
-                                    fontFamily: "Caesar Dressing",
-                                    fontSize: '16px',
-                                    color: '#bac4a7',
-                                    textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
-                                }}>
-                                {user?.displayName || user?.email}
-                            </Text>
-                            <Button
-                                variant="soft"
-                                style={{
-                                    marginTop: '1rem',
-                                    width: '100%',
-                                    fontFamily: "Caesar Dressing",
-                                    fontSize: '15px',
-                                    background: 'rgba(186, 196, 167, 0.2)',
-                                    color: '#bac4a7',
-                                    border: '1px solid rgba(186, 196, 167, 0.4)',
-                                    boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.2)',
-                                }}
-                                onClick={handleLogout}
-                            >
-                                LOG OUT
-                            </Button>
+                   
+                    <Box style={{ padding: '1rem 1.5rem 1.5rem 1.5rem', backgroundColor: '#374228', height: '450px', border: '8px solid #b5c59f', borderRadius: '15px', }}>
+                        <Separator size="4" style={{ background: 'rgba(23, 23, 22, 0.4)', marginBottom: '1rem' }} />
+                        <Box style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'space-between',
+                            height: '350px',
+                            padding: '1rem',
+                          
+                            backgroundSize: '800px 1040px',
+                            backgroundPosition: 'center',  //
+                            backgroundRepeat: 'no-repeat',
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+                            transform: 'scaleX(-1)', 
+                            border: '8px solid #b5c59f',
+                            borderRadius: '15px',
+                        }}>
+                            <Box style={{ transform: 'scaleX(-1)', marginTop: '20px' }}>
+                                <Text size="5" style={{
+                                    color: '#c5b39f',
+                                    textShadow: '1px 4px 2px rgba(0,0,0,0.5)',
+                                    letterSpacing: '2px', fontFamily: 'Nordic Chance', fontSize: '36px', marginLeft: '30px', marginTop: '30px',
+                                }}>Logged in as</Text>
+                                <Text size="5" weight="medium" style={{
+                                    display: 'block', marginTop: '1.25rem', fontFamily: 'BlackChancery', fontSize: '30px', lineHeight: "1.2", color: '#c5b39f',
+                                    textShadow: '1px 4px 2px rgba(0,0,0,0.5)', textAlign: 'center',
+                                    letterSpacing: '1px',
+                                }}>{user?.displayName || user?.email}</Text>
+                                <Button style={{
+                                    marginTop: '1rem', width: '100%', height: '100px', fontFamily: 'Nordic Chance', fontSize: '45px', background: 'rgba(34, 82, 46, 0.2)', border: '5px solid rgba(186, 196, 167, 0.4)', color: '#c5b39f',
+                                    textShadow: '1px 4px 2px rgba(0,0,0,0.5)', textAlign: 'center',
+                                    letterSpacing: '2px',
+                                }} onClick={handleLogout}>LOG OUT</Button>
+                            </Box>
                         </Box>
                     </Box>
                 </Flex>
 
-                {/* Main Content */}
-                <Box style={{
-                    flex: 1,
-                    padding: '2rem',
-                    overflowY: 'auto',
-                }}>
-                    <Outlet />
+              
+                <Box style={{ flex: 1, padding: '2rem', overflowY: 'auto' }}>
+            <Outlet />
                 </Box>
+
+                <Flex
+                    direction="column"
+                    style={{
+                        width: '350px',
+                        position: 'relative',
+                        overflow: 'hidden',
+                        zIndex: 10,
+                    }}
+                >
+                  
+                    <Box style={{ padding: '1.0rem 1.0rem 1rem 0.5rem', background: 'transparent' }}>
+                        <Box mb="0.5">
+                            <Button
+                                variant="ghost"
+                                style={{
+                                    padding: 0,
+                                    border: 'none',
+                                    background: 'transparent',
+                                    cursor: 'pointer',
+                                    display: 'block',
+                                    boxShadow: 'none', 
+                                    outline: 'none',    
+                                }}
+                                onClick={handleEmergency} 
+                            >
+                                <img
+                                    src="/images/Fa2.png"
+                                    alt="Emergency Resources"
+                                    style={{
+                                        width: '350px',
+                                        height: '350px',
+                                        filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.5))',
+                                        marginTop: '1.0rem',
+
+                                    }}
+
+                                />
+                            </Button>
+                        </Box>
+                        <Separator size="4" style={{ background: 'rgba(170, 149, 15, 0.4)', marginTop: '-3rem' }} />
+                    </Box>
+
+                
+                    <Box style={{ flex: 1, background: 'transparent', padding: '1rem 1.5rem' }}>
+                        <Flex direction="column" gap="2" style={{ height: '100%' }}>
+                            <Link to="/who" style={{ textDecoration: 'none' }}>
+                                <Box style={{ ...bookCardStyle, background: bookGradients.eir }}>
+                                    <Flex align="center" gap="3" style={{ flexDirection: 'row-reverse' }}>
+                                        <Box style={{ flex: 1, textAlign: 'Left' }}>
+                                            <Text style={{ ...titleStyle, marginLeft: '18px' }}>ABOUT EIR</Text>
+                                        </Box>
+                                        <Box style={{ ...runeBoxStyle, marginLeft: '4px' }}>ᛃ</Box>
+                                    </Flex>
+                                </Box>
+                            </Link>
+
+                            <Link to="/Meditation" style={{ textDecoration: 'none' }}>
+                                <Box style={{ ...bookCardStyle, background: bookGradients.eir2 }}>
+                                    <Flex align="center" gap="3" style={{ flexDirection: 'row-reverse' }}>
+                                        <Box style={{ flex: 1, textAlign: 'Left' }}>
+                                            <Text style={{ ...titleStyle, marginLeft: '22px' }}>Meditate</Text>
+                                        </Box>
+                                        <Box style={{ ...runeBoxStyle, marginLeft: '4px' }}>ᛟ</Box>
+                                    </Flex>
+                                </Box>
+                            </Link>
+
+                            <Link to="/BoxBreathing" style={{ textDecoration: 'none' }}>
+                                <Box style={{ ...bookCardStyle, background: bookGradients.eir3 }}>
+                                    <Flex align="center" gap="3" style={{ flexDirection: 'row-reverse' }}>
+                                        <Box style={{ flex: 1, textAlign: 'Left' }}>
+                                            <Text style={{ ...titleStyle, marginLeft: '28px' }}>BREATHE</Text>
+                                        </Box>
+                                        <Box style={{ ...runeBoxStyle, marginLeft: '4px' }}>ᚾ</Box>
+                                    </Flex>
+                                </Box>
+                            </Link>
+
+                            <Link to="/Focus" style={{ textDecoration: 'none' }}>
+                                <Box style={{ ...bookCardStyle, background: bookGradients.eir4 }}>
+                                    <Flex align="center" gap="3" style={{ flexDirection: 'row-reverse' }}>
+                                        <Box style={{ flex: 1, textAlign: 'Left' }}>
+                                            <Text style={{ ...titleStyle, marginLeft: '45px' }}>FOCUS</Text>
+                                        </Box>
+                                        <Box style={{ ...runeBoxStyle, marginLeft: '4px' }}>ᚢ</Box>
+                                    </Flex>
+                                </Box>
+                            </Link>
+                        </Flex>
+                    </Box>
+
+                    
+                    <Box style={{
+                        padding: '1rem 1.5rem 1.5rem 1.5rem',
+                        backgroundColor: '#374228',
+                        border: '8px solid #b5c59f',
+                        borderRadius: '15px',
+                    }}>
+                        <Separator size="4" style={{ marginBottom: '1rem' }} />
+
+                        
+                        <Text
+                            size="3"
+                            weight="bold"
+                            style={{
+                                fontFamily: 'Nordic Chance',
+                                marginBottom: '0.8rem',
+                                display: 'block',
+                                marginLeft: '40px',
+                                fontSize: '30px',
+                                color: '#c5b39f',
+                                textShadow: '1px 4px 2px rgba(0,0,0,0.5)',
+                            }}
+                        >
+                            Listen to the Forrest
+                        </Text>
+
+                        <Box style={{
+                            borderRadius: '12px',
+                            overflow: 'hidden',
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+                        }}>
+                            <iframe
+                                title="Spotify Player"
+                                src="https://open.spotify.com/embed/album/5MwzGfUCuxblJFiwmjHr1c?utm_source=generator"
+                                width="100%"
+                                height="352"
+                                style={{
+                                    borderRadius: '12px',
+                                    border: 'none',
+                                    maxWidth: '660px',
+                                }}
+                                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                                loading="lazy"
+                                sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"
+                                referrerPolicy="origin"
+                                onError={(e) => console.log("Spotify iframe error:", e)}
+                            />
+                        </Box>
+                    </Box>
+
+                  
+
+                </Flex>
             </Flex>
         </Box>
     );
